@@ -1,0 +1,4063 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- USAePay Soap Interface - v1.2 (Doc/Literal)
+This WSDL includes also v1.6 functionality, but the version is stay as is for compatibility by server side
+ -->
+<!-- WSDL file generated painstakingly by hand -->
+
+<definitions 
+	name="usaepay" 
+	targetNamespace="https://www.usaepay.com/soap/1.6/usaepay" 
+	xmlns:typens="https://www.usaepay.com/soap/1.6/usaepay" 
+	xmlns:uefaults="https://www.usaepay.com/soap/1.2/uefaults"
+	xmlns:uedocs="urn:usaepay"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns="http://schemas.xmlsoap.org/wsdl/">
+	
+	<types>
+		<!-- usaepay specific types (namespace typens) -->
+		<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="https://www.usaepay.com/soap/1.6/usaepay">
+			<xsd:complexType name="CustomerObject">
+				<xsd:all>
+					<xsd:element name="Amount" type="xsd:double" />
+					<xsd:element name="BillingAddress" type="typens:Address" />
+					<xsd:element name="Created" type="xsd:dateTime" minOccurs="0" />
+					<xsd:element name="Currency" type="xsd:string" minOccurs="0" />
+					<xsd:element name="CustNum" type="xsd:string" minOccurs="0" />
+					<xsd:element name="CustomData" type="xsd:string" minOccurs="0" />
+					<xsd:element name="CustomFields" type="typens:FieldValueArray" minOccurs="0" />
+					<xsd:element name="CustomerID" type="xsd:string" />
+					<xsd:element name="Description" type="xsd:string" />
+					<xsd:element name="Enabled" type="xsd:boolean" />
+					<xsd:element name="Failures" type="int" maxOccurs="1" minOccurs="0" />
+					<xsd:element name="LookupCode" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Modified" type="xsd:dateTime" minOccurs="0" />
+					<xsd:element name="Next" type="xsd:string" />
+					<xsd:element name="Notes" type="xsd:string" minOccurs="0" />
+					<xsd:element name="NumLeft" type="xsd:integer" />
+					<xsd:element name="OrderID" type="xsd:string" />
+					<xsd:element name="PaymentMethods" type="typens:PaymentMethodArray" minOccurs="0"/>
+					<xsd:element name="PriceTier" type="xsd:string" minOccurs="0" />
+					<xsd:element name="ReceiptNote" type="xsd:string" />
+					<xsd:element name="Schedule" type="xsd:string" />
+					<xsd:element name="SendReceipt" type="xsd:boolean" />
+					<xsd:element name="Source" type="xsd:string" minOccurs="0" />
+					<xsd:element name="Tax" type="xsd:double" minOccurs="0" />
+					<xsd:element name="TaxClass" type="xsd:string" minOccurs="0" />
+					<xsd:element name="User" type="xsd:string" minOccurs="0" />
+					<xsd:element name="URL" type="xsd:string" minOccurs="0" />
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="CustomerObjectArray">
+				<sequence>
+					<element name="Customer" type="typens:CustomerObject" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+			</xsd:complexType>
+			<xsd:complexType name="PaymentMethod">
+				<xsd:all>
+					<xsd:element name="MethodType" type="xsd:string" minOccurs="0" />
+					<xsd:element name="MethodID" type="xsd:integer" minOccurs="0" />
+					<xsd:element name="MethodName" type="xsd:string" />
+					<xsd:element name="SecondarySort" type="xsd:integer" />
+					<xsd:element name="Created" type="xsd:dateTime" maxOccurs="1" minOccurs="0" />
+					<xsd:element name="Modified" type="xsd:dateTime" maxOccurs="1" minOccurs="0" />
+					<xsd:element name="Account" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="AccountType" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="DriversLicense" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="DriversLicenseState" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="RecordType" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Routing" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="AvsStreet" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="AvsZip" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="CardCode" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="CardExpiration" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="CardNumber" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="CardType" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Balance" type="xsd:double" minOccurs="0" />
+					<xsd:element name="MaxBalance" type="xsd:double" minOccurs="0" />
+					<xsd:element name="AutoReload" type="xsd:string" minOccurs="0" />
+					<xsd:element name="ReloadSchedule" type="xsd:string" minOccurs="0" />
+					<xsd:element name="ReloadThreshold" type="xsd:string" minOccurs="0" />
+					<xsd:element name="ReloadAmount" type="xsd:string" minOccurs="0" />
+					<xsd:element name="ReloadMethodID" type="xsd:integer" minOccurs="0" />
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="PaymentMethodArray">
+				<sequence>
+					<element name="item" type="typens:PaymentMethod" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+			</xsd:complexType>
+			<xsd:complexType name="doubleArray">
+				<sequence>
+					<element name="double" type="xsd:double" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+			</xsd:complexType>
+			<xsd:complexType name="CurrencyConversion">
+				<xsd:all>
+					<xsd:element name="Amount" type="xsd:double"/>
+					<xsd:element name="Currency" type="xsd:string"/>
+					<xsd:element name="FromAmount" type="xsd:double"/>
+					<xsd:element name="FromCurrency" type="xsd:string"/>
+					<xsd:element name="Rate" type="xsd:double"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="CurrencyConversionArray">
+				<sequence>
+					<element name="CurrencyConversion" type="typens:CurrencyConversion" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+			</xsd:complexType>
+			<xsd:complexType name="TransactionResponse">
+				<xsd:all>
+					<xsd:element name="AcsUrl" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="AuthAmount" type="xsd:double" minOccurs="0"/>
+					<xsd:element name="AuthCode" type="xsd:string"/>
+					<xsd:element name="AvsResult" type="xsd:string"/>
+					<xsd:element name="AvsResultCode" type="xsd:string"/>
+					<xsd:element name="BatchNum" type="xsd:integer"/>
+					<xsd:element name="BatchRefNum" type="xsd:integer"/>
+					<xsd:element name="CardCodeResult" type="xsd:string"/>
+					<xsd:element name="CardCodeResultCode" type="xsd:string"/>
+					<xsd:element name="CardLevelResult" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="CardLevelResultCode" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="ConversionRate" type="xsd:double"/>
+					<xsd:element name="ConvertedAmount" type="xsd:double"/>
+					<xsd:element name="ConvertedAmountCurrency" type="xsd:string"/>
+					<xsd:element name="CustNum" type="xsd:integer"/>
+					<xsd:element name="Error" type="xsd:string"/>
+					<xsd:element name="ErrorCode" type="xsd:integer"/>
+					<xsd:element name="isDuplicate" type="xsd:boolean"/>
+					<xsd:element name="Payload" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="ProfilerScore" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="ProfilerResponse" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="ProfilerReason" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="RefNum" type="xsd:integer"/>
+					<xsd:element name="RemainingBalance" type="xsd:double" minOccurs="0"/>
+					<xsd:element name="Result" type="xsd:string"/>
+					<xsd:element name="ResultCode" type="xsd:string"/>
+					<xsd:element name="Status" type="xsd:string"/>
+					<xsd:element name="StatusCode" type="xsd:string"/>
+					<xsd:element name="VpasResultCode" type="xsd:string" minOccurs="0"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="stringArray">
+				<sequence>
+					<element name="string" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+			</xsd:complexType>
+			<xsd:complexType name="BatchUploadStatus">
+				<xsd:all>
+					<xsd:element name="Approved" type="xsd:integer"/>
+					<xsd:element name="UploadRefNum" type="xsd:integer"/>
+					<xsd:element name="Declined" type="xsd:integer"/>
+					<xsd:element name="Errors" type="xsd:integer"/>
+					<xsd:element name="Finished" type="xsd:string"/>
+					<xsd:element name="Remaining" type="xsd:integer"/>
+					<xsd:element name="Started" type="xsd:string"/>
+					<xsd:element name="Status" type="xsd:string"/>
+					<xsd:element name="Transactions" type="xsd:integer"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="AccountDetails">
+				<xsd:all>
+					<xsd:element name="CardholderAuthentication" type="xsd:string"/>
+					<xsd:element name="CheckPlatform" type="xsd:string"/>
+					<xsd:element name="CreditCardPlatform" type="xsd:string"/>
+					<xsd:element name="DebitCardSupport" type="xsd:boolean"/>
+					<xsd:element name="DirectPayPlatform" type="xsd:string"/>
+					<xsd:element name="Industry" type="xsd:string"/>
+					<xsd:element name="SupportedCurrencies" type="typens:CurrencyObjectArray"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="BatchStatus">
+				<xsd:all>
+					<xsd:element name="BatchRefNum" type="xsd:integer"/>
+					<xsd:element name="Closed" type="xsd:string"/>
+					<xsd:element name="CreditsAmount" type="xsd:double"/>
+					<xsd:element name="CreditsCount" type="xsd:integer"/>
+					<xsd:element name="NetAmount" type="xsd:double"/>
+					<xsd:element name="Opened" type="xsd:string"/>
+					<xsd:element name="SalesAmount" type="xsd:double"/>
+					<xsd:element name="SalesCount" type="xsd:integer"/>
+					<xsd:element name="Scheduled" type="xsd:string"/>
+					<xsd:element name="Sequence" type="xsd:integer"/>
+					<xsd:element name="Status" type="xsd:string"/>
+					<xsd:element name="TransactionCount" type="xsd:integer"/>
+					<xsd:element name="VoidsAmount" type="xsd:double"/>
+					<xsd:element name="VoidsCount" type="xsd:integer"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="BatchStatusArray">
+				<sequence>
+					<element name="item" type="typens:BatchStatus" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+			</xsd:complexType>
+			<xsd:complexType name="Bank">
+				<xsd:all>
+					<xsd:element name="Code" type="xsd:string"/>
+					<xsd:element name="Name" type="xsd:string"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="BankArray">
+				<sequence>
+					<element name="Bank" type="typens:Bank" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+			</xsd:complexType>
+			<xsd:complexType name="TransactionObject">
+				<xsd:all>
+					<xsd:element name="AccountHolder" type="xsd:string"/>
+					<xsd:element name="BillingAddress" type="typens:Address"/>
+					<xsd:element name="CheckData" type="typens:CheckData"/>
+					<xsd:element name="CheckTrace" type="typens:CheckTrace"/>
+					<xsd:element name="ClientIP" type="xsd:string"/>
+					<xsd:element name="CreditCardData" type="typens:CreditCardData"/>
+					<xsd:element name="CustomerID" type="xsd:string"/>
+					<xsd:element name="CustomFields" type="typens:FieldValueArray" />
+					<xsd:element name="DateTime" type="xsd:string"/>
+					<xsd:element name="Details" type="typens:TransactionDetail"/>
+					<xsd:element name="LineItems" type="typens:LineItemArray" minOccurs="0"/>
+					<xsd:element name="Response" type="typens:TransactionResponse"/>
+					<xsd:element name="ServerIP" type="xsd:string"/>
+					<xsd:element name="ShippingAddress" type="typens:Address"/>
+					<xsd:element name="Source" type="xsd:string"/>
+					<xsd:element name="Status" type="xsd:string"/>
+					<xsd:element name="TransactionType" type="xsd:string"/>
+					<xsd:element name="User" type="xsd:string"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="TransactionObjectArray">
+				<sequence>
+					<element name="item" type="typens:TransactionObject" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+			</xsd:complexType>
+			<xsd:complexType name="TransactionSearchResult">
+				<xsd:all>
+					<xsd:element name="AuthOnlyAmount" type="xsd:float"/>
+					<xsd:element name="AuthOnlyCount" type="xsd:integer"/>
+					<xsd:element name="CreditsAmount" type="xsd:float"/>
+					<xsd:element name="CreditsCount" type="xsd:integer"/>
+					<xsd:element name="DeclinesAmount" type="xsd:float"/>
+					<xsd:element name="DeclinesCount" type="xsd:integer"/>
+					<xsd:element name="ErrorsAmount" type="xsd:float"/>
+					<xsd:element name="ErrorsCount" type="xsd:integer"/>
+					<xsd:element name="Limit" type="xsd:integer"/>
+					<xsd:element name="SalesAmount" type="xsd:float"/>
+					<xsd:element name="SalesCount" type="xsd:integer"/>
+					<xsd:element name="StartIndex" type="xsd:integer"/>
+					<xsd:element name="Transactions" type="typens:TransactionObjectArray"/>
+					<xsd:element name="TransactionsMatched" type="xsd:integer"/>
+					<xsd:element name="TransactionsReturned" type="xsd:integer"/>
+					<xsd:element name="VoidsAmount" type="xsd:float"/>
+					<xsd:element name="VoidsCount" type="xsd:integer"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="TransactionRequestObject">
+				<xsd:all>
+					<xsd:element name="AccountHolder" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="AuthCode" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="BillingAddress" type="typens:Address" minOccurs="0"/>
+					<xsd:element name="CheckData" type="typens:CheckData" minOccurs="0"/>
+					<xsd:element name="ClientIP" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Command" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="CreditCardData" type="typens:CreditCardData" minOccurs="0"/>
+					<xsd:element name="CustomerID" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="CustomFields" type="typens:FieldValueArray" minOccurs="0"/>
+					<xsd:element name="CustReceipt" type="xsd:boolean" minOccurs="0"/>
+					<xsd:element name="CustReceiptName" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Details" type="typens:TransactionDetail"/>
+					<xsd:element name="IfAuthExpired" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="IgnoreDuplicate" type="xsd:boolean" minOccurs="0"/>
+					<xsd:element name="InventoryLocation" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="IsRecurring" type="xsd:boolean" minOccurs="0"/>
+					<xsd:element name="LineItems" type="typens:LineItemArray" minOccurs="0"/>
+					<xsd:element name="RecurringBilling" type="typens:RecurringBilling" minOccurs="0"/>
+					<xsd:element name="RefNum" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="ShippingAddress" type="typens:Address" minOccurs="0"/>
+					<xsd:element name="Software" type="xsd:string" minOccurs="0"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="TransactionDetail">
+				<xsd:all>
+					<xsd:element name="AllowPartialAuth" type="xsd:boolean" minOccurs="0"/>
+					<xsd:element name="Amount" type="xsd:double" minOccurs="0"/>
+					<xsd:element name="Clerk" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Currency" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Comments" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Discount" type="xsd:double" minOccurs="0"/>
+					<xsd:element name="Duty" type="xsd:double" minOccurs="0"/>
+					<xsd:element name="Invoice" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="NonTax" type="xsd:boolean" minOccurs="0"/>
+					<xsd:element name="OrderID" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="PONum" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="SessionID" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="ShipFromZip" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Shipping" type="xsd:double" minOccurs="0"/>
+					<xsd:element name="Subtotal" type="xsd:double" minOccurs="0"/>
+					<xsd:element name="Table" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Tax" type="xsd:double" minOccurs="0"/>
+					<xsd:element name="Terminal" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Tip" type="xsd:double" minOccurs="0"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="BatchSearchResult">
+				<xsd:all>
+					<xsd:element name="Batches" type="typens:BatchStatusArray"/>
+					<xsd:element name="BatchesMatched" type="xsd:integer"/>
+					<xsd:element name="BatchesReturned" type="xsd:integer"/>
+					<xsd:element name="Limit" type="xsd:integer"/>
+					<xsd:element name="StartIndex" type="xsd:integer"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="CustomerSearchResult">
+				<xsd:all>
+					<xsd:element name="Customers" type="typens:CustomerObjectArray"/>
+					<xsd:element name="CustomersMatched" type="xsd:integer"/>
+					<xsd:element name="CustomersReturned" type="xsd:integer"/>
+					<xsd:element name="Limit" type="xsd:integer"/>
+					<xsd:element name="StartIndex" type="xsd:integer"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ueHash">
+				<xsd:all>
+					<xsd:element name="HashValue" type="xsd:string"/>
+					<xsd:element name="Seed" type="xsd:string"/>
+					<xsd:element name="Type" type="xsd:string"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="Address">
+				<xsd:all>
+					<xsd:element name="City" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Company" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Country" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Email" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Fax" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="FirstName" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="LastName" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Phone" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="State" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Street" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Street2" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Zip" type="xsd:string" minOccurs="0"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="CheckData">
+				<xsd:all>
+					<xsd:element name="Account" type="xsd:string"/>
+					<xsd:element name="AccountType" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="CheckNumber" type="xsd:integer" minOccurs="0"/>
+					<xsd:element name="DriversLicense" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="DriversLicenseState" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="RecordType" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Routing" type="xsd:string"/>
+					<xsd:element name="MICR" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="AuxOnUS" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="EpcCode" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="FrontImage" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="BackImage" type="xsd:string" minOccurs="0"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="CreditCardData">
+				<xsd:all>
+					<xsd:element name="AvsStreet" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="AvsZip" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="CardCode" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="CardExpiration" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="CardNumber" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="CardPresent" type="xsd:boolean" minOccurs="0"/>
+					<xsd:element name="CardType" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="CAVV" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="DUKPT" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="ECI" type="xsd:integer" minOccurs="0"/>
+					<xsd:element name="InternalCardAuth" type="xsd:boolean" minOccurs="0"/>
+					<xsd:element name="MagStripe" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="MagSupport" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Pares" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Signature" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="TermType" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="XID" type="xsd:string" minOccurs="0"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="CreditCardDataArray">
+				<sequence>
+					<element name="CreditCardData" type="typens:CreditCardData" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+			</xsd:complexType>
+			<xsd:complexType name="CurrencyObject">
+				<xsd:all>
+					<xsd:element name="Currency" type="xsd:string"/>
+					<xsd:element name="DecimalPlaces" type="xsd:integer"/>
+					<xsd:element name="NumericCode" type="xsd:integer"/>
+					<xsd:element name="Rate" type="xsd:double"/>
+					<xsd:element name="TextCode" type="xsd:string"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="CurrencyObjectArray">
+				<sequence>
+					<element name="Currency" type="typens:CurrencyObject" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+			</xsd:complexType>
+			<xsd:complexType name="CheckTrace">
+				<xsd:all>
+					<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="StatusCode" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="BankNote" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Effective" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Processed" type="xsd:string" minOccurs="0" />
+					<xsd:element name="Returned" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="ReturnCode" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Reason" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Settled" type="xsd:string" minOccurs="0" />
+					<xsd:element name="TrackingNum" type="xsd:string" minOccurs="0"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="FieldValue">
+				<xsd:all>
+					<xsd:element name="Field" type="xsd:string"/>
+					<xsd:element name="Value" type="xsd:string"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="FieldValueArray">
+				<sequence>
+					<element name="FieldValue" type="typens:FieldValue" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+			</xsd:complexType>
+			<xsd:complexType name="RecurringBilling">
+				<xsd:all>
+					<xsd:element name="Amount" type="xsd:double"/>
+					<xsd:element name="Enabled" type="xsd:boolean"/>
+					<xsd:element name="Expire" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Next" type="xsd:string"/>
+					<xsd:element name="NumLeft" type="xsd:integer"/>
+					<xsd:element name="Schedule" type="xsd:string"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="SearchParam">
+				<xsd:all>
+					<xsd:element name="Field" type="xsd:string"/>
+					<xsd:element name="Type" type="xsd:string"/>
+					<xsd:element name="Value" type="xsd:string"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="SearchParamArray">
+				<sequence>
+					<element name="SearchParam" type="typens:SearchParam" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+			</xsd:complexType>
+			
+			<!-- v1.6 start -->
+			<xsd:complexType name="TransactionProfile">
+				<xsd:all>
+					<xsd:element name="DeviceID" type="xsd:string"/>
+					<xsd:element name="Policy" type="xsd:string"/>
+					<xsd:element name="ProfileData" type="typens:FieldValueArray" />
+					<xsd:element name="RiskRating" type="xsd:string"/>
+					<xsd:element name="Score" type="xsd:string"/>
+					<xsd:element name="SessionID" type="xsd:string"/>
+					<xsd:element name="Status" type="xsd:string"/>
+					<xsd:element name="Scoring" type="typens:FieldValueArray" />
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="TransactionSession">
+				<xsd:all>
+					<xsd:element name="OrgID" type="xsd:string"/>
+					<xsd:element name="SessionID" type="xsd:string"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="CreditCardToken">
+				<xsd:all>
+					<xsd:element name="CardRef" type="xsd:string"/>
+					<xsd:element name="CardExpiration" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="CardNumber" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="CardType" type="xsd:string" minOccurs="0"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="CreditCardTokenArray">
+				<sequence>
+					<element name="item" type="typens:CreditCardToken" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+			</xsd:complexType>
+			<xsd:complexType name="Receipt">
+				<xsd:all>
+					<xsd:element name="ReceiptRefNum" type="xsd:integer" minOccurs="0"/>
+					<xsd:element name="Name" type="xsd:string"/>
+					<xsd:element name="Subject" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="FromEmail" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Target" type="xsd:string"/>
+					<xsd:element name="ContentType" type="xsd:string"/>
+					<xsd:element name="TemplateHTML" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="TemplateText" type="xsd:string" minOccurs="0"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ReceiptArray">
+				<sequence>
+					<element name="item" type="typens:Receipt" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+			</xsd:complexType>
+			<xsd:complexType name="PriceTier">
+				<xsd:all>
+					<xsd:element name="Qty" type="xsd:string"/>
+					<xsd:element name="Price" type="xsd:string"/>
+					<xsd:element name="CustomerTier" type="xsd:string" minOccurs="0" />
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="PriceTierArray">
+				<sequence>
+					<element name="item" type="typens:PriceTier" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+			</xsd:complexType>
+			<xsd:complexType name="Product">
+				<xsd:all>
+					<xsd:element name="ProductRefNum" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="ProductID" type="xsd:string"/>
+					<xsd:element name="SKU" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="UPC" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Category" type="xsd:string"/>
+					<xsd:element name="Enabled" type="xsd:boolean" minOccurs="0"/>
+					<xsd:element name="Name" type="xsd:string"/>
+					<xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Model" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Weight" type="xsd:double" minOccurs="0"/>
+					<xsd:element name="ShipWeight" type="xsd:double" minOccurs="0"/>
+					<xsd:element name="Price" type="xsd:double"/>
+					<xsd:element name="WholesalePrice" type="xsd:double" minOccurs="0"/>
+					<xsd:element name="ListPrice" type="xsd:double" minOccurs="0"/>
+					<xsd:element name="DateAvailable" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Manufacturer" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="PhysicalGood" type="xsd:boolean" minOccurs="0"/>
+					<xsd:element name="TaxClass" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="MinQuantity" type="xsd:integer" minOccurs="0"/>
+					<xsd:element name="ImageURL" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="URL" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Created" type="xsd:dateTime" minOccurs="0" />
+					<xsd:element name="Modified" type="xsd:dateTime" minOccurs="0" />
+					<xsd:element name="Inventory" type="typens:ProductInventoryArray" minOccurs="0" />
+					<xsd:element name="PriceTiers" type="typens:PriceTierArray" minOccurs="0" />
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ProductArray">
+				<sequence>
+					<element name="item" type="typens:Product" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ProductCategory">
+				<xsd:all>
+					<xsd:element name="ProductCategoryRefNum" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Name" type="xsd:string"/>
+					<xsd:element name="Created" type="xsd:dateTime" minOccurs="0" />
+					<xsd:element name="Modified" type="xsd:dateTime" minOccurs="0" />
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ProductCategoryArray">
+				<sequence>
+					<element name="item" type="typens:ProductCategory" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ProductInventory">
+				<xsd:all>
+					<xsd:element name="InventoryLocation" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="QtyOnHand" type="xsd:string"/>
+					<xsd:element name="QtyOnOrder" type="xsd:string" minOccurs="0" />
+					<xsd:element name="DateAvailable" type="xsd:string" minOccurs="0" />
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ProductInventoryArray">
+				<sequence>
+					<element name="item" type="typens:ProductInventory" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ProductInventoryLocation">
+				<xsd:all>
+					<xsd:element name="InventoryLocation" type="xsd:string"/>
+					<xsd:element name="LocationName" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Description" type="xsd:string" minOccurs="0" />
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ProductInventoryLocationArray">
+				<sequence>
+					<element name="item" type="typens:ProductInventoryLocation" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ProductSearchResult">
+				<xsd:all>
+					<xsd:element name="Products" type="typens:ProductArray"/>
+					<xsd:element name="ProductsMatched" type="xsd:integer"/>
+					<xsd:element name="ProductsReturned" type="xsd:integer"/>
+					<xsd:element name="Limit" type="xsd:integer"/>
+					<xsd:element name="StartIndex" type="xsd:integer"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="SystemInfo">
+				<xsd:all>
+					<xsd:element name="ApiVersion" type="xsd:string"/>
+					<xsd:element name="Environment" type="xsd:string"/>
+					<xsd:element name="Datacenter" type="xsd:string"/>
+					<xsd:element name="Time" type="xsd:string"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="SyncLog">
+				<xsd:all>
+					<xsd:element name="SyncPosition" type="xsd:integer"/>
+					<xsd:element name="ObjectName" type="xsd:string"/>
+					<xsd:element name="RefNum" type="xsd:string"/>
+					<xsd:element name="ChangeDate" type="xsd:dateTime"/>
+					<xsd:element name="Action" type="xsd:string"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="SyncLogArray">
+				<sequence>
+					<element name="item" type="typens:SyncLog" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+			</xsd:complexType>
+			<xsd:complexType name="LineItem">
+				<xsd:all>
+					<xsd:element name="ProductRefNum" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="SKU" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="CommodityCode" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="ProductName" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="DiscountAmount" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="DiscountRate" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="UnitOfMeasure" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="UnitPrice" type="xsd:string"/>
+					<xsd:element name="Qty" type="xsd:string"/>
+					<xsd:element name="Taxable" type="xsd:boolean" minOccurs="0"/>
+					<xsd:element name="TaxAmount" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="TaxRate" type="xsd:string" minOccurs="0"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="LineItemArray">
+				<sequence>
+					<element name="item" type="typens:LineItem" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+			</xsd:complexType>
+			<xsd:complexType name="CheckOutStatus">
+				<xsd:all>
+					<element name="Status" type="xsd:string"/>
+					<element name="Detail" type="xsd:string"/>
+					<element name="Started" type="xsd:string"/>
+					<element name="Response" type="typens:TransactionResponse"  minOccurs="0"/>
+					<element name="Signature" type="xsd:string"  minOccurs="0"/>
+				</xsd:all>
+			</xsd:complexType>	
+			<xsd:complexType name="PosDevice">
+				<xsd:all>
+					<element name="State" type="xsd:string" minOccurs="0"/>
+					<element name="DeviceIP" type="xsd:string" minOccurs="0"/>
+					<element name="Model" type="xsd:string" minOccurs="0"/>
+					<element name="SerialNum" type="xsd:string" minOccurs="0"/>
+					<element name="Registered" type="xsd:string" minOccurs="0"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="CheckOutRequest">
+				<xsd:all>
+					<xsd:element name="Command" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="CardCode" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="ClientIP" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="CompletionMessage" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="CustomFields" type="typens:FieldValueArray" minOccurs="0"/>
+					<xsd:element name="CustReceipt" type="xsd:boolean" minOccurs="0"/>
+					<xsd:element name="CustReceiptEmail" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="CustReceiptName" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="ManuallyKey" type="xsd:boolean" minOccurs="0"/>
+					<xsd:element name="MerchReceipt" type="xsd:boolean" minOccurs="0"/>
+					<xsd:element name="MerchReceiptEmail" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="MerchReceiptName" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Details" type="typens:TransactionDetail"/>
+					<xsd:element name="IgnoreDuplicate" type="xsd:boolean" minOccurs="0"/>
+					<xsd:element name="isRecurring" type="xsd:boolean" minOccurs="0"/>
+					<xsd:element name="LineItems" type="typens:LineItemArray" minOccurs="0"/>
+					<xsd:element name="ScreenHeader" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Software" type="xsd:string" minOccurs="0"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="SignatureStatus">
+				<xsd:all>
+					<element name="Status" type="xsd:string"/>
+					<element name="Detail" type="xsd:string"/>
+					<element name="Started" type="xsd:string"/>
+					<element name="Signature" type="xsd:string"  minOccurs="0"/>
+				</xsd:all>
+			</xsd:complexType>				
+			<xsd:complexType name="ueSecurityToken">
+				<xsd:all>
+					<xsd:element name="ClientIP" type="xsd:string"/>
+					<xsd:element name="PinHash" type="typens:ueHash"/>
+					<xsd:element name="SourceKey" type="xsd:string"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="CustomerTransactionRequest">
+				<xsd:all>
+					<xsd:element name="Command" type="xsd:string"/>
+					<xsd:element name="CardCode" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="ClientIP" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="CustomFields" type="typens:FieldValueArray" minOccurs="0"/>
+					<xsd:element name="CustReceipt" type="xsd:boolean" minOccurs="0"/>
+					<xsd:element name="CustReceiptEmail" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="CustReceiptName" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="MerchReceipt" type="xsd:boolean" minOccurs="0"/>
+					<xsd:element name="MerchReceiptEmail" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="MerchReceiptName" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Details" type="typens:TransactionDetail"/>
+					<xsd:element name="IgnoreDuplicate" type="xsd:boolean" minOccurs="0"/>
+					<xsd:element name="InventoryLocation" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="isRecurring" type="xsd:boolean" minOccurs="0"/>
+					<xsd:element name="LineItems" type="typens:LineItemArray" minOccurs="0"/>
+					<xsd:element name="Software" type="xsd:string" minOccurs="0"/>
+				</xsd:all>
+			</xsd:complexType>
+			<!-- v1.6 end -->
+		</schema>
+		
+		<!--  response docs (namespace uedocs) -->
+		<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:usaepay">
+			
+			<import namespace="https://www.usaepay.com/soap/1.6/usaepay" />
+
+			<element name="addCustomer" type="uedocs:AddCustomerRequest"/>
+			<complexType name="AddCustomerRequest">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="CustomerData" type="typens:CustomerObject"/>
+				</sequence>
+			</complexType>
+			<element name="addCustomerResponse" type="uedocs:AddCustomerResponse"/>
+			<complexType name="AddCustomerResponse">
+				<sequence>
+					<element name="addCustomerReturn" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+
+			<element name="addCustomerPaymentMethod" type="uedocs:addCustomerPaymentMethod"/>
+			<complexType name="addCustomerPaymentMethod">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="CustNum" type="xsd:integer"/>
+						<element name="PaymentMethod" type="typens:PaymentMethod"/>
+						<element name="MakeDefault" type="xsd:boolean"/>
+						<element name="Verify" type="xsd:boolean"/>
+				</sequence>
+			</complexType>
+
+			<element name="addCustomerPaymentMethodResponse" type="uedocs:addCustomerPaymentMethodResponse"/>
+			<complexType name="addCustomerPaymentMethodResponse">
+				<sequence>
+						<element name="addCustomerPaymentMethodReturn" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+
+			<element name="bulkCurrencyConversion" type="uedocs:bulkCurrencyConversion"/>
+			<complexType name="bulkCurrencyConversion">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="FromCurrency" type="xsd:string"/>
+						<element name="ToCurrency" type="xsd:string"/>
+						<element name="Amounts" type="typens:doubleArray"/>
+				</sequence>
+			</complexType>
+
+			<element name="bulkCurrencyConversionResponse" type="uedocs:bulkCurrencyConversionResponse"/>
+			<complexType name="bulkCurrencyConversionResponse">
+				<sequence>
+						<element name="bulkCurrencyConversionReturn" type="typens:CurrencyConversionArray"/>
+				</sequence>
+			</complexType>
+
+			<element name="captureTransaction" type="uedocs:captureTransaction"/>
+			<complexType name="captureTransaction">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="RefNum" type="xsd:integer"/>
+						<element name="Amount" type="xsd:double"/>
+				</sequence>
+			</complexType>
+
+			<element name="captureTransactionResponse" type="uedocs:captureTransactionResponse"/>
+			<complexType name="captureTransactionResponse">
+				<sequence>
+						<element name="captureTransactionReturn" type="typens:TransactionResponse"/>
+				</sequence>
+			</complexType>
+
+			<element name="closeBatch" type="uedocs:CloseBatchRequest"/>
+			<complexType name="CloseBatchRequest">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="BatchRefNum" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+
+			<element name="closeBatchResponse" type="uedocs:closeBatchResponse"/>
+			<complexType name="closeBatchResponse">
+				<sequence>
+						<element name="closeBatchReturn" type="xsd:boolean"/>
+				</sequence>
+			</complexType>
+
+			<element name="convertTranToCust" type="uedocs:convertTranToCust"/>
+			<complexType name="convertTranToCust">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="RefNum" type="xsd:integer"/>
+						<element name="UpdateData" type="typens:FieldValueArray"/>
+				</sequence>
+			</complexType>
+
+			<element name="convertTranToCustResponse" type="uedocs:convertTranToCustResponse"/>
+			<complexType name="convertTranToCustResponse">
+				<sequence>
+						<element name="convertTranToCustReturn" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+
+			<element name="copyCustomer" type="uedocs:copyCustomer"/>
+			<complexType name="copyCustomer">
+				<sequence>
+						<element name="CopyFromToken" type="typens:ueSecurityToken"/>
+						<element name="CustNum" type="xsd:integer"/>
+						<element name="CopyToToken" type="typens:ueSecurityToken"/>
+				</sequence>
+			</complexType>
+
+			<element name="copyCustomerResponse" type="uedocs:copyCustomerResponse"/>
+			<complexType name="copyCustomerResponse">
+				<sequence>
+						<element name="copyCustomerReturn" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+
+			<element name="createBatchUpload" type="uedocs:createBatchUpload"/>
+			<complexType name="createBatchUpload">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="FileName" type="xsd:string"/>
+						<element name="AutoStart" type="xsd:boolean"/>
+						<element name="Format" type="xsd:string"/>
+						<element name="Encoding" type="xsd:string"/>
+						<element name="Fields" type="typens:stringArray"/>
+						<element name="Data" type="xsd:string"/>
+						<element name="OverrideDuplicates" type="xsd:boolean"/>
+				</sequence>
+			</complexType>
+
+			<element name="createBatchUploadResponse" type="uedocs:createBatchUploadResponse"/>
+			<complexType name="createBatchUploadResponse">
+				<sequence>
+						<element name="createBatchUploadReturn" type="typens:BatchUploadStatus"/>
+				</sequence>
+			</complexType>
+
+			<element name="currencyConversion" type="uedocs:currencyConversion2"/>
+			<complexType name="currencyConversion2">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="FromCurrency" type="xsd:integer"/>
+						<element name="ToCurrency" type="xsd:integer"/>
+						<element name="Amount" type="xsd:double"/>
+				</sequence>
+			</complexType>
+
+			<element name="currencyConversionResponse" type="uedocs:currencyConversionResponse"/>
+			<complexType name="currencyConversionResponse">
+				<sequence>
+						<element name="currencyConversionReturn" type="typens:CurrencyConversion"/>
+				</sequence>
+			</complexType>
+
+			<element name="deleteCustomer" type="uedocs:deleteCustomer"/>
+			<complexType name="deleteCustomer">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="CustNum" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+
+			<element name="deleteCustomerPaymentMethod" type="uedocs:deleteCustomerPaymentMethod"/>
+			<complexType name="deleteCustomerPaymentMethod">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="CustNum" type="xsd:integer"/>
+						<element name="PaymentMethodID" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+
+			<element name="deleteCustomerPaymentMethodResponse" type="uedocs:deleteCustomerPaymentMethodResponse"/>
+			<complexType name="deleteCustomerPaymentMethodResponse">
+				<sequence>
+						<element name="deleteCustomerPaymentMethodReturn" type="xsd:boolean"/>
+				</sequence>
+			</complexType>
+
+			<element name="deleteCustomerResponse" type="uedocs:deleteCustomerResponse"/>
+			<complexType name="deleteCustomerResponse">
+				<sequence>
+						<element name="deleteCustomerReturn" type="xsd:boolean"/>
+				</sequence>
+			</complexType>
+
+			<element name="disableCustomer" type="uedocs:disableCustomer"/>
+			<complexType name="disableCustomer">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="CustNum" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+
+			<element name="disableCustomerResponse" type="uedocs:disableCustomerResponse"/>
+			<complexType name="disableCustomerResponse">
+				<sequence>
+						<element name="disableCustomerReturn" type="xsd:boolean"/>
+				</sequence>
+			</complexType>
+
+			<element name="enableCustomer" type="uedocs:enableCustomer"/>
+			<complexType name="enableCustomer">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="CustNum" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+
+			<element name="enableCustomerResponse" type="uedocs:enableCustomerResponse"/>
+			<complexType name="enableCustomerResponse">
+				<sequence>
+						<element name="enableCustomerReturn" type="xsd:boolean"/>
+				</sequence>
+			</complexType>
+
+			<element name="getAccountDetails" type="uedocs:getAccountDetails"/>
+			<complexType name="getAccountDetails">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+				</sequence>
+			</complexType>
+
+			<element name="getAccountDetailsResponse" type="uedocs:getAccountDetailsResponse"/>
+			<complexType name="getAccountDetailsResponse">
+				<sequence>
+						<element name="getAccountDetailsReturn" type="typens:AccountDetails"/>
+				</sequence>
+			</complexType>
+
+			<element name="getBankList" type="uedocs:getBankList"/>
+			<complexType name="getBankList">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+				</sequence>
+			</complexType>
+
+			<element name="getBankListResponse" type="uedocs:getBankListResponse"/>
+			<complexType name="getBankListResponse">
+				<sequence>
+						<element name="getBankListDetailsReturn" type="typens:BankArray"/>
+				</sequence>
+			</complexType>
+
+			<element name="getBatchStatus" type="uedocs:getBatchStatus"/>
+			<complexType name="getBatchStatus">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="BatchRefNum" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+
+			<element name="getBatchStatusResponse" type="uedocs:getBatchStatusResponse"/>
+			<complexType name="getBatchStatusResponse">
+				<sequence>
+						<element name="getBatchStatusReturn" type="typens:BatchStatus"/>
+				</sequence>
+			</complexType>
+
+			<element name="getBatchTransactions" type="uedocs:getBatchTransactions"/>
+			<complexType name="getBatchTransactions">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="BatchRefNum" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+
+			<element name="getBatchTransactionsResponse" type="uedocs:getBatchTransactionsResponse"/>
+			<complexType name="getBatchTransactionsResponse">
+				<sequence>
+						<element name="getBatchTransactionsReturn" type="typens:TransactionObjectArray"/>
+				</sequence>
+			</complexType>
+
+			<element name="getBatchUploadStatus" type="uedocs:getBatchUploadStatus"/>
+			<complexType name="getBatchUploadStatus">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="UploadRefNum" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+
+			<element name="getBatchUploadStatusResponse" type="uedocs:getBatchUploadStatusResponse"/>
+			<complexType name="getBatchUploadStatusResponse">
+				<sequence>
+						<element name="getBatchUploadStatusReturn" type="typens:BatchUploadStatus"/>
+				</sequence>
+			</complexType>
+
+			<element name="getCustomer" type="uedocs:getCustomer"/>
+			<complexType name="getCustomer">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="CustNum" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+
+			<element name="getCustomerHistory" type="uedocs:getCustomerHistory"/>
+			<complexType name="getCustomerHistory">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="CustNum" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+
+			<element name="getCustomerHistoryResponse" type="uedocs:getCustomerHistoryResponse"/>
+			<complexType name="getCustomerHistoryResponse">
+				<sequence>
+						<element name="getCustomerHistoryReturn" type="typens:TransactionSearchResult"/>
+				</sequence>
+			</complexType>
+
+			<element name="getCustomerPaymentMethod" type="uedocs:getCustomerPaymentMethod"/>
+			<complexType name="getCustomerPaymentMethod">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="CustNum" type="xsd:integer"/>
+						<element name="MethodID" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+
+			<element name="getCustomerPaymentMethodResponse" type="uedocs:getCustomerPaymentMethodResponse"/>
+			<complexType name="getCustomerPaymentMethodResponse">
+				<sequence>
+						<element name="getCustomerPaymentMethodReturn" type="typens:PaymentMethod"/>
+				</sequence>
+			</complexType>
+
+			<element name="getCustomerPaymentMethods" type="uedocs:getCustomerPaymentMethods"/>
+			<complexType name="getCustomerPaymentMethods">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="CustNum" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+
+			<element name="getCustomerPaymentMethodsResponse" type="uedocs:getCustomerPaymentMethodsResponse"/>
+			<complexType name="getCustomerPaymentMethodsResponse">
+				<sequence>
+						<element name="getCustomerPaymentMethodsReturn" type="typens:PaymentMethodArray"/>
+				</sequence>
+			</complexType>
+
+			<element name="getCustomerResponse" type="uedocs:getCustomerResponse"/>
+			<complexType name="getCustomerResponse">
+				<sequence>
+						<element name="getCustomerReturn" type="typens:CustomerObject"/>
+				</sequence>
+			</complexType>
+
+			<element name="getSupportedCurrencies" type="uedocs:getSupportedCurrencies"/>
+			<complexType name="getSupportedCurrencies">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+				</sequence>
+			</complexType>
+
+			<element name="getSupportedCurrenciesResponse" type="uedocs:getSupportedCurrenciesResponse"/>
+			<complexType name="getSupportedCurrenciesResponse">
+				<sequence>
+						<element name="getSupportedCurrenciesReturn" type="typens:CurrencyObjectArray"/>
+				</sequence>
+			</complexType>
+
+			<element name="getTransaction" type="uedocs:getTransaction"/>
+			<complexType name="getTransaction">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="RefNum" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+			<element name="getTransactionResponse" type="uedocs:getTransactionResponse"/>
+			<complexType name="getTransactionResponse">
+				<sequence>
+					<element name="getTransactionReturn" type="typens:TransactionObject"/>
+				</sequence>
+			</complexType>
+			
+			<element name="getTransactionCustom" type="uedocs:getTransactionCustom"/>
+			<complexType name="getTransactionCustom">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="RefNum" type="xsd:integer"/>
+						<element name="Fields" type="typens:stringArray"/>
+				</sequence>
+			</complexType>
+
+			<element name="getTransactionCustomResponse" type="uedocs:getTransactionCustomResponse"/>
+			<complexType name="getTransactionCustomResponse">
+				<sequence>
+						<element name="getTransactionCustomReturn" type="typens:FieldValueArray"/>
+				</sequence>
+			</complexType>
+
+			<element name="getTransactionReport" type="uedocs:getTransactionReport"/>
+			<complexType name="getTransactionReport">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="StartDate" type="xsd:string"/>
+						<element name="EndDate" type="xsd:string"/>
+						<element name="Report" type="xsd:string"/>
+						<element name="Format" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="getTransactionReportResponse" type="uedocs:getTransactionReportResponse"/>
+			<complexType name="getTransactionReportResponse">
+				<sequence>
+						<element name="getTransactionReportReturn" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="getTransactionStatus" type="uedocs:getTransactionStatus"/>
+			<complexType name="getTransactionStatus">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="RefNum" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+			<element name="getTransactionStatusResponse" type="uedocs:getTransactionStatusResponse"/>
+			<complexType name="getTransactionStatusResponse">
+				<sequence>
+					<element name="getTransactionStatusReturn" type="typens:TransactionResponse"/>
+				</sequence>
+			</complexType>
+			
+			<!-- v1.6 start -->
+			<element name="getTransactionProfile" type="uedocs:getTransactionProfile"/>
+			<complexType name="getTransactionProfile">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="RefNum" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+			<element name="getTransactionProfileResponse" type="uedocs:getTransactionProfileResponse"/>
+			<complexType name="getTransactionProfileResponse">
+				<sequence>
+					<element name="getTransactionProfileReturn" type="typens:TransactionResponse"/>
+				</sequence>
+			</complexType>
+
+			<element name="getCheckTrace" type="uedocs:getCheckTrace"/>
+			<complexType name="getCheckTrace">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="RefNum" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+			<element name="getCheckTraceResponse" type="uedocs:getCheckTraceResponse"/>
+			<complexType name="getCheckTraceResponse">
+				<sequence>
+					<element name="getCheckTraceReturn" type="typens:CheckTrace"/>
+				</sequence>
+			</complexType>
+
+			<element name="getSession" type="uedocs:getSession"/>
+			<complexType name="getSession">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+				</sequence>
+			</complexType>
+			<element name="getSessionResponse" type="uedocs:getSessionResponse"/>
+			<complexType name="getSessionResponse">
+				<sequence>
+					<element name="getSessionReturn" type="typens:TransactionSession"/>
+				</sequence>
+			</complexType>
+
+			<element name="saveCard" type="uedocs:saveCard"/>
+			<complexType name="saveCard">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="CreditCardData" type="typens:CreditCardData"/>
+				</sequence>
+			</complexType>
+			<element name="saveCardResponse" type="uedocs:saveCardResponse"/>
+			<complexType name="saveCardResponse">
+				<sequence>
+					<element name="saveCardReturn" type="typens:CreditCardToken"/>
+				</sequence>
+			</complexType>
+			
+			<element name="saveCards" type="uedocs:saveCards"/>
+			<complexType name="saveCards">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="CreditCards" type="typens:CreditCardDataArray"/>
+				</sequence>
+			</complexType>
+			<element name="saveCardsResponse" type="uedocs:saveCardsResponse"/>
+			<complexType name="saveCardsResponse">
+				<sequence>
+					<element name="saveCardsReturn" type="typens:CreditCardTokenArray"/>
+				</sequence>
+			</complexType>
+			
+			<element name="lookupCardToken" type="uedocs:lookupCardToken"/>
+			<complexType name="lookupCardToken">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="Lookup" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="lookupCardTokenResponse" type="uedocs:lookupCardTokenResponse"/>
+			<complexType name="lookupCardTokenResponse">
+				<sequence>
+					<element name="lookupCardTokenReturn" type="typens:CreditCardToken"/>
+				</sequence>
+			</complexType>
+			
+			<element name="emailTransactionReceipt" type="uedocs:emailTransactionReceipt"/>
+			<complexType name="emailTransactionReceipt">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="RefNum" type="xsd:integer"/>
+					<element name="ReceiptRefNum" type="xsd:integer"/>
+					<element name="Email" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="emailTransactionReceiptResponse" type="uedocs:emailTransactionReceiptResponse"/>
+			<complexType name="emailTransactionReceiptResponse">
+				<sequence>
+					<element name="emailTransactionReceiptReturn" type="xsd:boolean"/>
+				</sequence>
+			</complexType>
+			
+			<element name="emailTransactionReceiptByName" type="uedocs:emailTransactionReceiptByName"/>
+			<complexType name="emailTransactionReceiptByName">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="RefNum" type="xsd:integer"/>
+					<element name="ReceiptName" type="xsd:string"/>
+					<element name="Email" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="emailTransactionReceiptByNameResponse" type="uedocs:emailTransactionReceiptByNameResponse"/>
+			<complexType name="emailTransactionReceiptByNameResponse">
+				<sequence>
+					<element name="emailTransactionReceiptByNameReturn" type="xsd:boolean"/>
+				</sequence>
+			</complexType>
+
+			<element name="renderReceipt" type="uedocs:renderReceipt"/>
+			<complexType name="renderReceipt">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="RefNum" type="xsd:integer"/>
+					<element name="ReceiptRefNum" type="xsd:integer"/>
+					<element name="ContentType" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="renderReceiptResponse" type="uedocs:renderReceiptResponse"/>
+			<complexType name="renderReceiptResponse">
+				<sequence>
+					<element name="renderReceiptReturn" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="renderReceiptByName" type="uedocs:renderReceiptByName"/>
+			<complexType name="renderReceiptByName">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="RefNum" type="xsd:integer"/>
+					<element name="ReceiptName" type="xsd:string"/>
+					<element name="ContentType" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="renderReceiptByNameResponse" type="uedocs:renderReceiptByNameResponse"/>
+			<complexType name="renderReceiptByNameResponse">
+				<sequence>
+					<element name="renderReceiptByNameReturn" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="addReceipt" type="uedocs:addReceipt"/>
+			<complexType name="addReceipt">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="Receipt" type="typens:Receipt"/>
+				</sequence>
+			</complexType>
+			<element name="addReceiptResponse" type="uedocs:addReceiptResponse"/>
+			<complexType name="addReceiptResponse">
+				<sequence>
+					<element name="addReceiptResponseReturn" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+
+			<element name="updateReceipt" type="uedocs:updateReceipt"/>
+			<complexType name="updateReceipt">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="ReceiptRefNum" type="xsd:integer"/>
+					<element name="Receipt" type="typens:Receipt"/>
+				</sequence>
+			</complexType>
+			<element name="updateReceiptResponse" type="uedocs:updateReceiptResponse"/>
+			<complexType name="updateReceiptResponse">
+				<sequence>
+					<element name="updateReceiptResponseReturn" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+
+			<element name="getReceipt" type="uedocs:getReceipt"/>
+			<complexType name="getReceipt">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="ReceiptRefNum" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+			<element name="getReceiptResponse" type="uedocs:getReceiptResponse"/>
+			<complexType name="getReceiptResponse">
+				<sequence>
+					<element name="getReceiptReturn" type="typens:Receipt"/>
+				</sequence>
+			</complexType>
+
+			<element name="getReceiptByName" type="uedocs:getReceiptByName"/>
+			<complexType name="getReceiptByName">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="Name" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="getReceiptByNameResponse" type="uedocs:getReceiptByNameResponse"/>
+			<complexType name="getReceiptByNameResponse">
+				<sequence>
+					<element name="getReceiptByNameReturn" type="typens:Receipt"/>
+				</sequence>
+			</complexType>
+
+			<element name="getReceipts" type="uedocs:getReceipts"/>
+			<complexType name="getReceipts">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="Target" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="getReceiptsResponse" type="uedocs:getReceiptsResponse"/>
+			<complexType name="getReceiptsResponse">
+				<sequence>
+					<element name="getReceiptsReturn" type="typens:ReceiptArray"/>
+				</sequence>
+			</complexType>
+
+			<element name="deleteReceipt" type="uedocs:deleteReceipt"/>
+			<complexType name="deleteReceipt">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="ReceiptRefNum" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+			<element name="deleteReceiptResponse" type="uedocs:deleteReceiptResponse"/>
+			<complexType name="deleteReceiptResponse">
+				<sequence>
+					<element name="deleteReceiptReturn" type="xsd:boolean"/>
+				</sequence>
+			</complexType>
+
+			<element name="getCustomerReport" type="uedocs:getCustomerReport"/>
+			<complexType name="getCustomerReport">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="Report" type="xsd:string"/>
+					<element name="Options" type="typens:FieldValueArray"/>
+					<element name="Format" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="getCustomerReportResponse" type="uedocs:getCustomerReportResponse"/>
+			<complexType name="getCustomerReportResponse">
+				<sequence>
+					<element name="getCustomerReportReturn" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="addProduct" type="uedocs:addProduct"/>
+			<complexType name="addProduct">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="Product" type="typens:Product"/>
+				</sequence>
+			</complexType>
+			<element name="addProductResponse" type="uedocs:addProductResponse"/>
+			<complexType name="addProductResponse">
+				<sequence>
+					<element name="ProductRefNum" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="getProduct" type="uedocs:getProduct"/>
+			<complexType name="getProduct">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="ProductRefNum" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="getProductResponse" type="uedocs:getProductResponse"/>
+			<complexType name="getProductResponse">
+				<sequence>
+					<element name="getProductReturn" type="typens:Product"/>
+				</sequence>
+			</complexType>
+
+			<element name="updateProduct" type="uedocs:updateProduct"/>
+			<complexType name="updateProduct">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="ProductRefNum" type="xsd:string"/>
+					<element name="Product" type="typens:Product"/>
+				</sequence>
+			</complexType>
+			<element name="updateProductResponse" type="uedocs:updateProductResponse"/>
+			<complexType name="updateProductResponse">
+				<sequence>
+					<element name="updateProductReturn" type="xsd:boolean"/>
+				</sequence>
+			</complexType>
+
+			<element name="quickUpdateProduct" type="uedocs:quickUpdateProduct"/>
+			<complexType name="quickUpdateProduct">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="ProductRefNum" type="xsd:string"/>
+					<element name="UpdateData" type="typens:FieldValueArray"/>
+				</sequence>
+			</complexType>
+			<element name="quickUpdateProductResponse" type="uedocs:quickUpdateProductResponse"/>
+			<complexType name="quickUpdateProductResponse">
+				<sequence>
+					<element name="quickUpdateProductReturn" type="xsd:boolean"/>
+				</sequence>
+			</complexType>
+
+			<element name="deleteProduct" type="uedocs:deleteProduct"/>
+			<complexType name="deleteProduct">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="ProductRefNum" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="deleteProductResponse" type="uedocs:deleteProductResponse"/>
+			<complexType name="deleteProductResponse">
+				<sequence>
+					<element name="deleteProductReturn" type="xsd:boolean"/>
+				</sequence>
+			</complexType>
+
+			<element name="addProductCategory" type="uedocs:addProductCategory"/>
+			<complexType name="addProductCategory">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="ProductCategory" type="typens:ProductCategory"/>
+				</sequence>
+			</complexType>
+			<element name="addProductCategoryResponse" type="uedocs:addProductCategoryResponse"/>
+			<complexType name="addProductCategoryResponse">
+				<sequence>
+					<element name="ProductCategoryRefNum" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="getProductCategory" type="uedocs:getProductCategory"/>
+			<complexType name="getProductCategory">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="ProductCategoryRefNum" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="getProductCategoryResponse" type="uedocs:getProductCategoryResponse"/>
+			<complexType name="getProductCategoryResponse">
+				<sequence>
+					<element name="getProductCategoryReturn" type="typens:ProductCategory"/>
+				</sequence>
+			</complexType>
+
+			<element name="getProductCategories" type="uedocs:getProductCategories"/>
+			<complexType name="getProductCategories">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+				</sequence>
+			</complexType>
+			<element name="getProductCategoriesResponse" type="uedocs:getProductCategoriesResponse"/>
+			<complexType name="getProductCategoriesResponse">
+				<sequence>
+					<element name="getProductCategoriesReturn" type="typens:ProductCategoryArray"/>
+				</sequence>
+			</complexType>
+
+			<element name="updateProductCategory" type="uedocs:updateProductCategory"/>
+			<complexType name="updateProductCategory">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="ProductCategoryRefNum" type="xsd:string"/>
+					<element name="ProductCategory" type="typens:ProductCategory"/>
+				</sequence>
+			</complexType>
+			<element name="updateProductCategoryResponse" type="uedocs:updateProductCategoryResponse"/>
+			<complexType name="updateProductCategoryResponse">
+				<sequence>
+					<element name="updateProductCategoryReturn" type="xsd:boolean"/>
+				</sequence>
+			</complexType>
+
+			<element name="deleteProductCategory" type="uedocs:deleteProductCategory"/>
+			<complexType name="deleteProductCategory">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="ProductCategoryRefNum" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="deleteProductCategoryResponse" type="uedocs:deleteProductCategoryResponse"/>
+			<complexType name="deleteProductCategoryResponse">
+				<sequence>
+					<element name="deleteProductCategoryReturn" type="xsd:boolean"/>
+				</sequence>
+			</complexType>
+
+			<element name="getProductInventory" type="uedocs:getProductInventory"/>
+			<complexType name="getProductInventory">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="ProductRefNum" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="getProductInventoryResponse" type="uedocs:getProductInventoryResponse"/>
+			<complexType name="getProductInventoryResponse">
+				<sequence>
+					<element name="getProductInventoryReturn" type="typens:ProductInventoryArray"/>
+				</sequence>
+			</complexType>
+
+			<element name="adjustInventory" type="uedocs:adjustInventory"/>
+			<complexType name="adjustInventory">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="ProductRefNum" type="xsd:string"/>
+					<element name="Inventory" type="typens:ProductInventoryArray"/>
+				</sequence>
+			</complexType>
+			<element name="adjustInventoryResponse" type="uedocs:adjustInventoryResponse"/>
+			<complexType name="adjustInventoryResponse">
+				<sequence>
+					<element name="adjustInventoryReturn" type="typens:ProductInventoryArray"/>
+				</sequence>
+			</complexType>
+
+			<element name="addProductInventoryLocation" type="uedocs:addProductInventoryLocation"/>
+			<complexType name="addProductInventoryLocation">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="ProductInventoryLocation" type="typens:ProductInventoryLocation"/>
+				</sequence>
+			</complexType>
+			<element name="addProductInventoryLocationResponse" type="uedocs:addProductInventoryLocationResponse"/>
+			<complexType name="addProductInventoryLocationResponse">
+				<sequence>
+					<element name="InventoryLocation" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="getProductInventoryLocation" type="uedocs:getProductInventoryLocation"/>
+			<complexType name="getProductInventoryLocation">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="InventoryLocation" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="getProductInventoryLocationResponse" type="uedocs:getProductInventoryLocationResponse"/>
+			<complexType name="getProductInventoryLocationResponse">
+				<sequence>
+					<element name="getProductInventoryLocationReturn" type="typens:ProductInventoryLocation"/>
+				</sequence>
+			</complexType>
+
+			<element name="getProductInventoryLocations" type="uedocs:getProductInventoryLocations"/>
+			<complexType name="getProductInventoryLocations">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+				</sequence>
+			</complexType>
+			<element name="getProductInventoryLocationsResponse" type="uedocs:getProductInventoryLocationsResponse"/>
+			<complexType name="getProductInventoryLocationsResponse">
+				<sequence>
+					<element name="getProductInventoryLocationsReturn" type="typens:ProductInventoryLocationArray"/>
+				</sequence>
+			</complexType>
+
+			<element name="searchProducts" type="uedocs:searchProducts"/>
+			<complexType name="searchProducts">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="Search" type="typens:SearchParamArray"/>
+					<element name="MatchAll" type="xsd:boolean"/>
+					<element name="Start" type="xsd:integer"/>
+					<element name="Limit" type="xsd:integer"/>
+					<element name="Sort" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="searchProductsResponse" type="uedocs:searchProductsResponse"/>
+			<complexType name="searchProductsResponse">
+				<sequence>
+					<element name="searchProductsReturn" type="typens:ProductSearchResult"/>
+				</sequence>
+			</complexType>
+
+			<element name="searchProductsCount" type="uedocs:searchProductsCount"/>
+			<complexType name="searchProductsCount">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="Search" type="typens:SearchParamArray"/>
+					<element name="MatchAll" type="xsd:boolean"/>
+					<element name="Start" type="xsd:integer"/>
+					<element name="Limit" type="xsd:integer"/>
+					<element name="Sort" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="searchProductsCountResponse" type="uedocs:searchProductsCountResponse"/>
+			<complexType name="searchProductsCountResponse">
+				<sequence>
+					<element name="searchProductsCountReturn" type="typens:ProductSearchResult"/>
+				</sequence>
+			</complexType>
+
+			<element name="searchProductsCustom" type="uedocs:searchProductsCustom"/>
+			<complexType name="searchProductsCustom">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="Search" type="typens:SearchParamArray"/>
+					<element name="MatchAll" type="xsd:boolean"/>
+					<element name="Start" type="xsd:integer"/>
+					<element name="Limit" type="xsd:integer"/>
+					<element name="FieldList" type="typens:stringArray"/>
+					<element name="Format" type="xsd:string"/>		
+					<element name="Sort" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="searchProductsCustomResponse" type="uedocs:searchProductsCustomResponse"/>
+			<complexType name="searchProductsCustomResponse">
+				<sequence>
+					<element name="searchProductsCustomReturn" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="getSystemInfo" type="uedocs:getSystemInfo"/>
+			<complexType name="getSystemInfo">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+				</sequence>
+			</complexType>
+			<element name="getSystemInfoResponse" type="uedocs:getSystemInfoResponse"/>
+			<complexType name="getSystemInfoResponse">
+				<sequence>
+					<element name="getSystemInfoReturn" type="typens:SystemInfo"/>
+				</sequence>
+			</complexType>
+
+			<element name="getReport" type="uedocs:getReport"/>
+			<complexType name="getReport">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="Report" type="xsd:string"/>
+					<element name="Options" type="typens:FieldValueArray"/>
+					<element name="Format" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="getReportResponse" type="uedocs:getReportResponse"/>
+			<complexType name="getReportResponse">
+				<sequence>
+					<element name="getReportReturn" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="getSyncLog" type="uedocs:getSyncLog"/>
+			<complexType name="getSyncLog">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="ObjectName" type="xsd:string"/>
+					<element name="FromPosition" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+			<element name="getSyncLogResponse" type="uedocs:getSyncLogResponse"/>
+			<complexType name="getSyncLogResponse">
+				<sequence>
+					<element name="getSyncLogReturn" type="typens:SyncLogArray"/>
+				</sequence>
+			</complexType>
+
+			<element name="getSyncLogCurrentPosition" type="uedocs:getSyncLogCurrentPosition"/>
+			<complexType name="getSyncLogCurrentPosition">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="ObjectName" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="getSyncLogCurrentPositionResponse" type="uedocs:getSyncLogCurrentPositionResponse"/>
+			<complexType name="getSyncLogCurrentPositionResponse">
+				<sequence>
+					<element name="getSyncLogCurrentPositionReturn" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+
+			<element name="getCustomFields" type="uedocs:getCustomFields"/>
+			<complexType name="getCustomFields">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+				</sequence>
+			</complexType>
+			<element name="getCustomFieldsResponse" type="uedocs:getCustomFieldsResponse"/>
+			<complexType name="getCustomFieldsResponse">
+				<sequence>
+					<element name="getCustomFieldsReturn" type="typens:FieldValueArray"/>
+				</sequence>
+			</complexType>
+
+			<element name="cancelCheckOut" type="uedocs:cancelCheckOut"/>
+			<complexType name="cancelCheckOut">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="RequestID" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="cancelCheckOutResponse" type="uedocs:cancelCheckOutResponse"/>
+			<complexType name="cancelCheckOutResponse">
+				<sequence>
+					<element name="cancelCheckOutReturn" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="cancelSignatureRequest" type="uedocs:cancelSignatureRequest"/>
+			<complexType name="cancelSignatureRequest">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="RequestID" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="cancelSignatureRequestResponse" type="uedocs:cancelSignatureRequestResponse"/>
+			<complexType name="cancelSignatureRequestResponse">
+				<sequence>
+					<element name="cancelSignatureRequestReturn" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="clearPosDeviceScreen" type="uedocs:clearPosDeviceScreen"/>
+			<complexType name="clearPosDeviceScreen">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+				</sequence>
+			</complexType>
+			<element name="clearPosDeviceScreenResponse" type="uedocs:clearPosDeviceScreenResponse"/>
+			<complexType name="clearPosDeviceScreenResponse">
+				<sequence>
+					<element name="clearPosDeviceScreenReturn" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="deletePosDeviceRegistration" type="uedocs:deletePosDeviceRegistration"/>
+			<complexType name="deletePosDeviceRegistration">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+				</sequence>
+			</complexType>
+			<element name="deletePosDeviceRegistrationResponse" type="uedocs:deletePosDeviceRegistrationResponse"/>
+			<complexType name="deletePosDeviceRegistrationResponse">
+				<sequence>
+					<element name="deletePosDeviceRegistrationReturn" type="xsd:string"/>
+				</sequence>
+			</complexType>
+ 
+			<element name="displayPosDeviceScreen" type="uedocs:displayPosDeviceScreen"/>
+			<complexType name="displayPosDeviceScreen">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="Screen" type="xsd:string"/>
+					<element name="Message" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="displayPosDeviceScreenResponse" type="uedocs:displayPosDeviceScreenResponse"/>
+			<complexType name="displayPosDeviceScreenResponse">
+				<sequence>
+					<element name="displayPosDeviceScreenReturn" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="getCheckOutStatus" type="uedocs:getCheckOutStatus"/>
+			<complexType name="getCheckOutStatus">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="RequestID" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="getCheckOutStatusResponse" type="uedocs:getCheckOutStatusResponse"/>
+			<complexType name="getCheckOutStatusResponse">
+				<sequence>
+					<element name="getCheckOutStatusReturn" type="typens:CheckOutStatus"/>
+				</sequence>
+			</complexType>
+
+			<element name="getPosDevice" type="uedocs:getPosDevice"/>
+			<complexType name="getPosDevice">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+				</sequence>
+			</complexType>
+			<element name="getPosDeviceResponse" type="uedocs:getPosDeviceResponse"/>
+			<complexType name="getPosDeviceResponse">
+				<sequence>
+					<element name="getPosDeviceReturn" type="typens:PosDevice"/>
+				</sequence>
+			</complexType>
+
+			<element name="getPosDeviceScreen" type="uedocs:getPosDeviceScreen"/>
+			<complexType name="getPosDeviceScreen">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+				</sequence>
+			</complexType>
+			<element name="getPosDeviceScreenResponse" type="uedocs:getPosDeviceScreenResponse"/>
+			<complexType name="getPosDeviceScreenResponse">
+				<sequence>
+					<element name="getPosDeviceScreenReturn" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="getRegistrationPin" type="uedocs:getRegistrationPin"/>
+			<complexType name="getRegistrationPin">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+				</sequence>
+			</complexType>
+			<element name="getRegistrationPinResponse" type="uedocs:getRegistrationPinResponse"/>
+			<complexType name="getRegistrationPinResponse">
+				<sequence>
+					<element name="getRegistrationPinReturn" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="getSignatureStatus" type="uedocs:getSignatureStatus"/>
+			<complexType name="getSignatureStatus">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="RequestID" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="getSignatureStatusResponse" type="uedocs:getSignatureStatusResponse"/>
+			<complexType name="getSignatureStatusResponse">
+				<sequence>
+					<element name="getSignatureStatusReturn" type="typens:SignatureStatus"/>
+				</sequence>
+			</complexType>
+
+			<element name="requestSignature" type="uedocs:requestSignature"/>
+			<complexType name="requestSignature">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="Message" type="xsd:string"/>
+					<element name="CompletionMessage" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="requestSignatureResponse" type="uedocs:requestSignatureResponse"/>
+			<complexType name="requestSignatureResponse">
+				<sequence>
+					<element name="requestSignatureReturn" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="startCheckOut" type="uedocs:startCheckOut"/>
+			<complexType name="startCheckOut">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="Request" type="typens:CheckOutRequest"/>
+				</sequence>
+			</complexType>
+			<element name="startCheckOutResponse" type="uedocs:startCheckOutResponse"/>
+			<complexType name="startCheckOutResponse">
+				<sequence>
+					<element name="startCheckOutReturn" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="updateCheckOut" type="uedocs:updateCheckOut"/>
+			<complexType name="updateCheckOut">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="RequestID" type="xsd:string"/>
+					<element name="Request" type="typens:CheckOutRequest"/>
+				</sequence>
+			</complexType>
+			<element name="updateCheckOutResponse" type="uedocs:updateCheckOutResponse"/>
+			<complexType name="updateCheckOutResponse">
+				<sequence>
+					<element name="updateCheckOutReturn" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<!-- v1.6 end -->
+
+			<element name="moveCustomer" type="uedocs:moveCustomer"/>
+			<complexType name="moveCustomer">
+				<sequence>
+						<element name="MoveFromToken" type="typens:ueSecurityToken"/>
+						<element name="CustNum" type="xsd:integer"/>
+						<element name="MoveToToken" type="typens:ueSecurityToken"/>
+				</sequence>
+			</complexType>
+
+			<element name="moveCustomerResponse" type="uedocs:moveCustomerResponse"/>
+			<complexType name="moveCustomerResponse">
+				<sequence>
+						<element name="moveCustomerReturn" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+
+			<element name="overrideTransaction" type="uedocs:overrideTransaction"/>
+			<complexType name="overrideTransaction">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="RefNum" type="xsd:integer"/>
+						<element name="Reason" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="overrideTransactionResponse" type="uedocs:overrideTransactionResponse"/>
+			<complexType name="overrideTransactionResponse">
+				<sequence>
+						<element name="overrideTransactionReturn" type="xsd:boolean"/>
+				</sequence>
+			</complexType>
+
+			<element name="pauseBatchUpload" type="uedocs:pauseBatchUpload"/>
+			<complexType name="pauseBatchUpload">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="UploadRefNum" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+
+			<element name="pauseBatchUploadResponse" type="uedocs:pauseBatchUploadResponse"/>
+			<complexType name="pauseBatchUploadResponse">
+				<sequence>
+						<element name="pauseBatchUploadReturn" type="xsd:boolean"/>
+				</sequence>
+			</complexType>
+
+			<element name="postAuth" type="uedocs:postAuth"/>
+			<complexType name="postAuth">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="Params" type="typens:TransactionRequestObject"/>
+				</sequence>
+			</complexType>
+
+			<element name="postAuthResponse" type="uedocs:postAuthResponse"/>
+			<complexType name="postAuthResponse">
+				<sequence>
+						<element name="postAuthReturn" type="typens:TransactionResponse"/>
+				</sequence>
+			</complexType>
+
+			<element name="quickUpdateCustomer" type="uedocs:quickUpdateCustomer"/>
+			<complexType name="quickUpdateCustomer">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="CustNum" type="xsd:integer"/>
+						<element name="UpdateData" type="typens:FieldValueArray"/>
+				</sequence>
+			</complexType>
+
+			<element name="quickUpdateCustomerResponse" type="uedocs:quickUpdateCustomerResponse"/>
+			<complexType name="quickUpdateCustomerResponse">
+				<sequence>
+						<element name="quickUpdateCustomerReturn" type="xsd:boolean"/>
+				</sequence>
+			</complexType>
+
+			<element name="refundTransaction" type="uedocs:refundTransaction"/>
+			<complexType name="refundTransaction">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="RefNum" type="xsd:integer"/>
+						<element name="Amount" type="xsd:double"/>
+				</sequence>
+			</complexType>
+
+			<element name="refundTransactionResponse" type="uedocs:refundTransactionResponse"/>
+			<complexType name="refundTransactionResponse">
+				<sequence>
+						<element name="refundTransactionReturn" type="typens:TransactionResponse"/>
+				</sequence>
+			</complexType>
+
+			<element name="runAuthOnly" type="uedocs:runAuthOnly"/>
+			<complexType name="runAuthOnly">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="Params" type="typens:TransactionRequestObject"/>
+				</sequence>
+			</complexType>
+
+			<element name="runAuthOnlyResponse" type="uedocs:runAuthOnlyResponse"/>
+			<complexType name="runAuthOnlyResponse">
+				<sequence>
+						<element name="runAuthOnlyReturn" type="typens:TransactionResponse"/>
+				</sequence>
+			</complexType>
+
+			<element name="runBatchUpload" type="uedocs:runBatchUpload"/>
+			<complexType name="runBatchUpload">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="UploadRefNum" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+
+			<element name="runBatchUploadResponse" type="uedocs:runBatchUploadResponse"/>
+			<complexType name="runBatchUploadResponse">
+				<sequence>
+						<element name="runBatchUploadReturn" type="xsd:boolean"/>
+				</sequence>
+			</complexType>
+
+			<element name="runCheckCredit" type="uedocs:runCheckCredit"/>
+			<complexType name="runCheckCredit">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="Params" type="typens:TransactionRequestObject"/>
+				</sequence>
+			</complexType>
+
+			<element name="runCheckCreditResponse" type="uedocs:runCheckCreditResponse"/>
+			<complexType name="runCheckCreditResponse">
+				<sequence>
+						<element name="runCheckCreditReturn" type="typens:TransactionResponse"/>
+				</sequence>
+			</complexType>
+
+			<element name="runCheckSale" type="uedocs:runCheckSale"/>
+			<complexType name="runCheckSale">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="Params" type="typens:TransactionRequestObject"/>
+				</sequence>
+			</complexType>
+
+			<element name="runCheckSaleResponse" type="uedocs:runCheckSaleResponse"/>
+			<complexType name="runCheckSaleResponse">
+				<sequence>
+						<element name="runCheckSaleReturn" type="typens:TransactionResponse"/>
+				</sequence>
+			</complexType>
+
+			<element name="runCredit" type="uedocs:runCredit"/>
+			<complexType name="runCredit">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="Params" type="typens:TransactionRequestObject"/>
+				</sequence>
+			</complexType>
+
+			<element name="runCreditResponse" type="uedocs:runCreditResponse"/>
+			<complexType name="runCreditResponse">
+				<sequence>
+						<element name="runCreditReturn" type="typens:TransactionResponse"/>
+				</sequence>
+			</complexType>
+
+			<element name="runCustomerTransaction" type="uedocs:runCustomerTransaction"/>
+			<complexType name="runCustomerTransaction">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="CustNum" type="xsd:integer"/>
+					<element name="PaymentMethodID" type="xsd:integer"/>
+					<element name="Parameters" type="typens:CustomerTransactionRequest"/>
+				</sequence>
+			</complexType>
+			<element name="runCustomerTransactionResponse" type="uedocs:runCustomerTransactionResponse"/>
+			<complexType name="runCustomerTransactionResponse">
+				<sequence>
+					<element name="runCustomerTransactionReturn" type="typens:TransactionResponse"/>
+				</sequence>
+			</complexType>
+
+			<element name="runSale" type="uedocs:runSale"/>
+			<complexType name="runSale">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="Params" type="typens:TransactionRequestObject"/>
+				</sequence>
+			</complexType>
+			<element name="runSaleResponse" type="uedocs:runSaleResponse"/>
+			<complexType name="runSaleResponse">
+				<sequence>
+					<element name="runSaleReturn" type="typens:TransactionResponse"/>
+				</sequence>
+			</complexType>
+
+
+			<element name="runQuickCredit" type="uedocs:runQuickCredit"/>
+			<complexType name="runQuickCredit">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="RefNum" type="xsd:integer"/>
+						<element name="Details" type="typens:TransactionDetail"/>
+				</sequence>
+			</complexType>
+			<element name="runQuickCreditResponse" type="uedocs:runQuickCreditResponse"/>
+			<complexType name="runQuickCreditResponse">
+				<sequence>
+						<element name="runQuickCreditReturn" type="typens:TransactionResponse"/>
+				</sequence>
+			</complexType>
+
+			<element name="runQuickSale" type="uedocs:runQuickSale"/>
+			<complexType name="runQuickSale">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="RefNum" type="xsd:integer"/>
+						<element name="Details" type="typens:TransactionDetail"/>
+						<element name="AuthOnly" type="xsd:boolean"/>
+				</sequence>
+			</complexType>
+			<element name="runQuickSaleResponse" type="uedocs:runQuickSaleResponse"/>
+			<complexType name="runQuickSaleResponse">
+				<sequence>
+						<element name="runQuickSaleReturn" type="typens:TransactionResponse"/>
+				</sequence>
+			</complexType>
+
+			<element name="runTransaction" type="uedocs:runTransaction"/>
+			<complexType name="runTransaction">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="Parameters" type="typens:TransactionRequestObject"/>
+				</sequence>
+			</complexType>
+
+			<element name="runTransactionAPI" type="uedocs:runTransactionAPI"/>
+			<complexType name="runTransactionAPI">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="Parameters" type="typens:FieldValueArray"/>
+				</sequence>
+			</complexType>
+
+			<element name="runTransactionAPIResponse" type="uedocs:runTransactionAPIResponse"/>
+			<complexType name="runTransactionAPIResponse">
+				<sequence>
+						<element name="runTransactionAPIReturn" type="typens:TransactionResponse"/>
+				</sequence>
+			</complexType>
+
+			<element name="runTransactionResponse" type="uedocs:runTransactionResponse"/>
+			<complexType name="runTransactionResponse">
+				<sequence>
+						<element name="runTransactionReturn" type="typens:TransactionResponse"/>
+				</sequence>
+			</complexType>
+
+			<element name="searchBatches" type="uedocs:searchBatches"/>
+			<complexType name="searchBatches">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="Search" type="typens:SearchParamArray"/>
+						<element name="MatchAll" type="xsd:boolean"/>
+						<element name="Start" type="xsd:integer"/>
+						<element name="Limit" type="xsd:integer"/>
+						<element name="Sort" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="searchBatchesCount" type="uedocs:searchBatchesCount"/>
+			<complexType name="searchBatchesCount">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="Search" type="typens:SearchParamArray"/>
+						<element name="MatchAll" type="xsd:boolean"/>
+						<element name="Start" type="xsd:integer"/>
+						<element name="Limit" type="xsd:integer"/>
+						<element name="Sort" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="searchBatchesCountResponse" type="uedocs:searchBatchesCountResponse"/>
+			<complexType name="searchBatchesCountResponse">
+				<sequence>
+						<element name="searchBatchesCountReturn" type="typens:BatchSearchResult"/>
+				</sequence>
+			</complexType>
+
+			<element name="searchBatchesResponse" type="uedocs:searchBatchesResponse"/>
+			<complexType name="searchBatchesResponse">
+				<sequence>
+						<element name="searchBatchesReturn" type="typens:BatchSearchResult"/>
+				</sequence>
+			</complexType>
+
+			<element name="searchCustomerID" type="uedocs:searchCustomerID"/>
+			<complexType name="searchCustomerID">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="CustID" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="searchCustomerIDResponse" type="uedocs:searchCustomerIDResponse"/>
+			<complexType name="searchCustomerIDResponse">
+				<sequence>
+						<element name="searchCustomerIDReturn" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+
+			<element name="searchCustomers" type="uedocs:searchCustomers"/>
+			<complexType name="searchCustomers">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="Search" type="typens:SearchParamArray"/>
+						<element name="MatchAll" type="xsd:boolean"/>
+						<element name="Start" type="xsd:integer"/>
+						<element name="Limit" type="xsd:integer"/>
+						<element name="Sort" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="searchCustomersCount" type="uedocs:searchCustomersCount"/>
+			<complexType name="searchCustomersCount">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="Search" type="typens:SearchParamArray"/>
+						<element name="MatchAll" type="xsd:boolean"/>
+						<element name="Start" type="xsd:integer"/>
+						<element name="Limit" type="xsd:integer"/>
+						<element name="Sort" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="searchCustomersCountResponse" type="uedocs:searchCustomersCountResponse"/>
+			<complexType name="searchCustomersCountResponse">
+				<sequence>
+						<element name="searchCustomersCountReturn" type="typens:CustomerSearchResult"/>
+				</sequence>
+			</complexType>
+
+			<element name="searchCustomersCustom" type="uedocs:searchCustomersCustom"/>
+			<complexType name="searchCustomersCustom">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="Search" type="typens:SearchParamArray"/>
+						<element name="MatchAll" type="xsd:boolean"/>
+						<element name="Start" type="xsd:integer"/>
+						<element name="Limit" type="xsd:integer"/>
+						<element name="FieldList" type="typens:stringArray"/>
+						<element name="Format" type="xsd:string"/>
+						<element name="Sort" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="searchCustomersCustomResponse" type="uedocs:searchCustomersCustomResponse"/>
+			<complexType name="searchCustomersCustomResponse">
+				<sequence>
+						<element name="searchCustomersCustomReturn" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="searchCustomersResponse" type="uedocs:searchCustomersResponse"/>
+			<complexType name="searchCustomersResponse">
+				<sequence>
+						<element name="searchCustomersReturn" type="typens:CustomerSearchResult"/>
+				</sequence>
+			</complexType>
+
+			<element name="searchTransactions" type="uedocs:searchTransactions"/>
+			<complexType name="searchTransactions">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="Search" type="typens:SearchParamArray"/>
+						<element name="MatchAll" type="xsd:boolean"/>
+						<element name="Start" type="xsd:integer"/>
+						<element name="Limit" type="xsd:integer"/>
+						<element name="Sort" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="searchTransactionsCount" type="uedocs:searchTransactionsCount"/>
+			<complexType name="searchTransactionsCount">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="Search" type="typens:SearchParamArray"/>
+						<element name="MatchAll" type="xsd:boolean"/>
+						<element name="Start" type="xsd:integer"/>
+						<element name="Limit" type="xsd:integer"/>
+						<element name="Sort" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="searchTransactionsCountResponse" type="uedocs:searchTransactionsCountResponse"/>
+			<complexType name="searchTransactionsCountResponse">
+				<sequence>
+						<element name="searchTransactionsCountReturn" type="typens:TransactionSearchResult"/>
+				</sequence>
+			</complexType>
+
+			<element name="searchTransactionsCustom" type="uedocs:searchTransactionsCustom"/>
+			<complexType name="searchTransactionsCustom">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="Search" type="typens:SearchParamArray"/>
+						<element name="MatchAll" type="xsd:boolean"/>
+						<element name="Start" type="xsd:integer"/>
+						<element name="Limit" type="xsd:integer"/>
+						<element name="FieldList" type="typens:stringArray"/>
+						<element name="Format" type="xsd:string"/>
+						<element name="Sort" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="searchTransactionsCustomResponse" type="uedocs:searchTransactionsCustomResponse"/>
+			<complexType name="searchTransactionsCustomResponse">
+				<sequence>
+						<element name="searchTransactionsCustomReturn" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<element name="searchTransactionsResponse" type="uedocs:searchTransactionsResponse"/>
+			<complexType name="searchTransactionsResponse">
+				<sequence>
+						<element name="searchTransactionsReturn" type="typens:TransactionSearchResult"/>
+				</sequence>
+			</complexType>
+
+			<element name="updateCustomer" type="uedocs:updateCustomer"/>
+			<complexType name="updateCustomer">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="CustNum" type="xsd:integer"/>
+						<element name="CustomerData" type="typens:CustomerObject"/>
+				</sequence>
+			</complexType>
+			<element name="updateCustomerResponse" type="uedocs:updateCustomerResponse"/>
+			<complexType name="updateCustomerResponse">
+				<sequence>
+						<element name="updateCustomerReturn" type="xsd:boolean"/>
+				</sequence>
+			</complexType>
+
+			<element name="updateCustomerPaymentMethod" type="uedocs:updateCustomerPaymentMethod"/>
+			<complexType name="updateCustomerPaymentMethod">
+				<sequence>
+						<element name="Token" type="typens:ueSecurityToken"/>
+						<element name="PaymentMethod" type="typens:PaymentMethod"/>
+						<element name="Verify" type="xsd:boolean"/>
+				</sequence>
+			</complexType>
+			<element name="updateCustomerPaymentMethodResponse" type="uedocs:updateCustomerPaymentMethodResponse"/>
+			<complexType name="updateCustomerPaymentMethodResponse">
+				<sequence>
+						<element name="updateCustomerPaymentMethodReturn" type="xsd:boolean"/>
+				</sequence>
+			</complexType>
+
+			<element name="voidTransaction" type="uedocs:voidTransaction"/>
+			<complexType name="voidTransaction">
+				<sequence>
+					<element name="Token" type="typens:ueSecurityToken"/>
+					<element name="RefNum" type="xsd:integer"/>
+				</sequence>
+			</complexType>
+			<element name="voidTransactionResponse" type="uedocs:voidTransactionResponse"/>
+			<complexType name="voidTransactionResponse">
+				<sequence>
+					<element name="voidTransactionReturn" type="xsd:boolean"/>
+				</sequence>
+			</complexType>	
+			
+		</schema>
+		
+		<!--  exceptions (namespace uefaults) -->
+		<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="https://www.usaepay.com/soap/1.2/uefaults">
+			<element name="generalFault" type="uefaults:generalFault"/>
+			<complexType name="generalFault">
+				<sequence/>
+			</complexType>
+		</schema>
+		
+		
+	</types>
+
+	<message name="addCustomer"><part name="body" element="uedocs:addCustomer"/></message>
+	<message name="addCustomerResponse"><part name="body" element="uedocs:addCustomerResponse"/></message>
+
+	<message name="addCustomerPaymentMethod"><part name="body" element="uedocs:addCustomerPaymentMethod"/></message>
+	<message name="addCustomerPaymentMethodResponse"><part name="body" element="uedocs:addCustomerPaymentMethodResponse"/></message>
+		
+	<message name="bulkCurrencyConversion"><part name="body" element="uedocs:bulkCurrencyConversion"/></message>
+	<message name="bulkCurrencyConversionResponse"><part name="body" element="uedocs:bulkCurrencyConversionResponse"/></message>
+		
+	<message name="captureTransaction"><part name="body" element="uedocs:captureTransaction"/></message>
+	<message name="captureTransactionResponse"><part name="body" element="uedocs:captureTransactionResponse"/></message>
+		
+	<message name="closeBatch"><part name="body" element="uedocs:closeBatch"/></message>
+	<message name="closeBatchResponse"><part name="body" element="uedocs:closeBatchResponse"/></message>
+		
+	<message name="convertTranToCust"><part name="body" element="uedocs:convertTranToCust"/></message>
+	<message name="convertTranToCustResponse"><part name="body" element="uedocs:convertTranToCustResponse"/></message>
+		
+	<message name="copyCustomer"><part name="body" element="uedocs:copyCustomer"/></message>
+	<message name="copyCustomerResponse"><part name="body" element="uedocs:copyCustomerResponse"/></message>
+		
+	<message name="createBatchUpload"><part name="body" element="uedocs:createBatchUpload"/></message>
+	<message name="createBatchUploadResponse"><part name="body" element="uedocs:createBatchUploadResponse"/></message>
+		
+	<message name="currencyConversion"><part name="body" element="uedocs:currencyConversion"/></message>
+	<message name="currencyConversionResponse"><part name="body" element="uedocs:currencyConversionResponse"/></message>
+		
+	<message name="deleteCustomer"><part name="body" element="uedocs:deleteCustomer"/></message>
+	<message name="deleteCustomerResponse"><part name="body" element="uedocs:deleteCustomerResponse"/></message>
+		
+	<message name="deleteCustomerPaymentMethod"><part name="body" element="uedocs:deleteCustomerPaymentMethod"/></message>
+	<message name="deleteCustomerPaymentMethodResponse"><part name="body" element="uedocs:deleteCustomerPaymentMethodResponse"/></message>
+		
+	<message name="disableCustomer"><part name="body" element="uedocs:disableCustomer"/></message>
+	<message name="disableCustomerResponse"><part name="body" element="uedocs:disableCustomerResponse"/></message>
+		
+	<message name="enableCustomer"><part name="body" element="uedocs:enableCustomer"/></message>
+	<message name="enableCustomerResponse"><part name="body" element="uedocs:enableCustomerResponse"/></message>
+		
+	<message name="getAccountDetails"><part name="body" element="uedocs:getAccountDetails"/></message>
+	<message name="getAccountDetailsResponse"><part name="body" element="uedocs:getAccountDetailsResponse"/></message>
+		
+	<message name="getBankList"><part name="body" element="uedocs:getBankList"/></message>
+	<message name="getBankListResponse"><part name="body" element="uedocs:getBankListResponse"/></message>
+		
+	<message name="getBatchStatus"><part name="body" element="uedocs:getBatchStatus"/></message>
+	<message name="getBatchStatusResponse"><part name="body" element="uedocs:getBatchStatusResponse"/></message>
+		
+	<message name="getBatchTransactions"><part name="body" element="uedocs:getBatchTransactions"/></message>
+	<message name="getBatchTransactionsResponse"><part name="body" element="uedocs:getBatchTransactionsResponse"/></message>
+		
+	<message name="getBatchUploadStatus"><part name="body" element="uedocs:getBatchUploadStatus"/></message>
+	<message name="getBatchUploadStatusResponse"><part name="body" element="uedocs:getBatchUploadStatusResponse"/></message>
+		
+	<message name="getCustomer"><part name="body" element="uedocs:getCustomer"/></message>
+	<message name="getCustomerResponse"><part name="body" element="uedocs:getCustomerResponse"/></message>
+		
+	<message name="getCustomerHistory"><part name="body" element="uedocs:getCustomerHistory"/></message>
+	<message name="getCustomerHistoryResponse"><part name="body" element="uedocs:getCustomerHistoryResponse"/></message>
+		
+	<message name="getCustomerPaymentMethod"><part name="body" element="uedocs:getCustomerPaymentMethod"/></message>
+	<message name="getCustomerPaymentMethodResponse"><part name="body" element="uedocs:getCustomerPaymentMethodResponse"/></message>
+		
+	<message name="getCustomerPaymentMethods"><part name="body" element="uedocs:getCustomerPaymentMethods"/></message>
+	<message name="getCustomerPaymentMethodsResponse"><part name="body" element="uedocs:getCustomerPaymentMethodsResponse"/></message>
+		
+	<message name="getSupportedCurrencies"><part name="body" element="uedocs:getSupportedCurrencies"/></message>
+	<message name="getSupportedCurrenciesResponse"><part name="body" element="uedocs:getSupportedCurrenciesResponse"/></message>
+		
+	<message name="getTransaction"><part name="body" element="uedocs:getTransaction"/></message>
+	<message name="getTransactionResponse"><part name="body" element="uedocs:getTransactionResponse"/></message>
+		
+	<message name="getTransactionCustom"><part name="body" element="uedocs:getTransactionCustom"/></message>
+	<message name="getTransactionCustomResponse"><part name="body" element="uedocs:getTransactionCustomResponse"/></message>
+		
+	<message name="getTransactionReport"><part name="body" element="uedocs:getTransactionReport"/></message>
+	<message name="getTransactionReportResponse"><part name="body" element="uedocs:getTransactionReportResponse"/></message>
+		
+	<message name="getTransactionStatus"><part name="body" element="uedocs:getTransactionStatus"/></message>
+	<message name="getTransactionStatusResponse"><part name="body" element="uedocs:getTransactionStatusResponse"/></message>
+		
+	<message name="moveCustomer"><part name="body" element="uedocs:moveCustomer"/></message>
+	<message name="moveCustomerResponse"><part name="body" element="uedocs:moveCustomerResponse"/></message>
+		
+	<message name="overrideTransaction"><part name="body" element="uedocs:overrideTransaction"/></message>
+	<message name="overrideTransactionResponse"><part name="body" element="uedocs:overrideTransactionResponse"/></message>
+		
+	<message name="pauseBatchUpload"><part name="body" element="uedocs:pauseBatchUpload"/></message>
+	<message name="pauseBatchUploadResponse"><part name="body" element="uedocs:pauseBatchUploadResponse"/></message>
+		
+	<message name="postAuth"><part name="body" element="uedocs:postAuth"/></message>
+	<message name="postAuthResponse"><part name="body" element="uedocs:postAuthResponse"/></message>
+		
+	<message name="quickUpdateCustomer"><part name="body" element="uedocs:quickUpdateCustomer"/></message>
+	<message name="quickUpdateCustomerResponse"><part name="body" element="uedocs:quickUpdateCustomerResponse"/></message>
+		
+	<message name="refundTransaction"><part name="body" element="uedocs:refundTransaction"/></message>
+	<message name="refundTransactionResponse"><part name="body" element="uedocs:refundTransactionResponse"/></message>
+		
+	<message name="runAuthOnly"><part name="body" element="uedocs:runAuthOnly"/></message>
+	<message name="runAuthOnlyResponse"><part name="body" element="uedocs:runAuthOnlyResponse"/></message>
+		
+	<message name="runBatchUpload"><part name="body" element="uedocs:runBatchUpload"/></message>
+	<message name="runBatchUploadResponse"><part name="body" element="uedocs:runBatchUploadResponse"/></message>
+		
+	<message name="runCheckCredit"><part name="body" element="uedocs:runCheckCredit"/></message>
+	<message name="runCheckCreditResponse"><part name="body" element="uedocs:runCheckCreditResponse"/></message>
+		
+	<message name="runCheckSale"><part name="body" element="uedocs:runCheckSale"/></message>
+	<message name="runCheckSaleResponse"><part name="body" element="uedocs:runCheckSaleResponse"/></message>
+		
+	<message name="runCredit"><part name="body" element="uedocs:runCredit"/></message>
+	<message name="runCreditResponse"><part name="body" element="uedocs:runCreditResponse"/></message>
+		
+	<message name="runCustomerTransaction"><part name="body" element="uedocs:runCustomerTransaction"/></message>
+	<message name="runCustomerTransactionResponse"><part name="body" element="uedocs:runCustomerTransactionResponse"/></message>
+		
+	<message name="runQuickCredit"><part name="body" element="uedocs:runQuickCredit"/></message>
+	<message name="runQuickCreditResponse"><part name="body" element="uedocs:runQuickCreditResponse"/></message>
+		
+	<message name="runQuickSale"><part name="body" element="uedocs:runQuickSale"/></message>
+	<message name="runQuickSaleResponse"><part name="body" element="uedocs:runQuickSaleResponse"/></message>
+		
+	<message name="runSale"><part name="body" element="uedocs:runSale"/></message>
+	<message name="runSaleResponse"><part name="body" element="uedocs:runSaleResponse"/></message>
+		
+	<message name="runTransaction"><part name="body" element="uedocs:runTransaction"/></message>
+	<message name="runTransactionResponse"><part name="body" element="uedocs:runTransactionResponse"/></message>
+		
+	<message name="runTransactionAPI"><part name="body" element="uedocs:runTransactionAPI"/></message>
+	<message name="runTransactionAPIResponse"><part name="body" element="uedocs:runTransactionAPIResponse"/></message>
+		
+	<message name="searchBatches"><part name="body" element="uedocs:searchBatches"/></message>
+	<message name="searchBatchesResponse"><part name="body" element="uedocs:searchBatchesResponse"/></message>
+		
+	<message name="searchBatchesCount"><part name="body" element="uedocs:searchBatchesCount"/></message>
+	<message name="searchBatchesCountResponse"><part name="body" element="uedocs:searchBatchesCountResponse"/></message>
+		
+	<message name="searchCustomerID"><part name="body" element="uedocs:searchCustomerID"/></message>
+	<message name="searchCustomerIDResponse"><part name="body" element="uedocs:searchCustomerIDResponse"/></message>
+		
+	<message name="searchCustomers"><part name="body" element="uedocs:searchCustomers"/></message>
+	<message name="searchCustomersResponse"><part name="body" element="uedocs:searchCustomersResponse"/></message>
+		
+	<message name="searchCustomersCount"><part name="body" element="uedocs:searchCustomersCount"/></message>
+	<message name="searchCustomersCountResponse"><part name="body" element="uedocs:searchCustomersCountResponse"/></message>
+		
+	<message name="searchCustomersCustom"><part name="body" element="uedocs:searchCustomersCustom"/></message>
+	<message name="searchCustomersCustomResponse"><part name="body" element="uedocs:searchCustomersCustomResponse"/></message>
+		
+	<message name="searchTransactions"><part name="body" element="uedocs:searchTransactions"/></message>
+	<message name="searchTransactionsResponse"><part name="body" element="uedocs:searchTransactionsResponse"/></message>
+		
+	<message name="searchTransactionsCount"><part name="body" element="uedocs:searchTransactionsCount"/></message>
+	<message name="searchTransactionsCountResponse"><part name="body" element="uedocs:searchTransactionsCountResponse"/></message>
+		
+	<message name="searchTransactionsCustom"><part name="body" element="uedocs:searchTransactionsCustom"/></message>
+	<message name="searchTransactionsCustomResponse"><part name="body" element="uedocs:searchTransactionsCustomResponse"/></message>
+		
+	<message name="updateCustomer"><part name="body" element="uedocs:updateCustomer"/></message>
+	<message name="updateCustomerResponse"><part name="body" element="uedocs:updateCustomerResponse"/></message>
+		
+	<message name="updateCustomerPaymentMethod"><part name="body" element="uedocs:updateCustomerPaymentMethod"/></message>
+	<message name="updateCustomerPaymentMethodResponse"><part name="body" element="uedocs:updateCustomerPaymentMethodResponse"/></message>
+		
+	<message name="voidTransaction"><part name="body" element="uedocs:voidTransaction"/></message>
+	<message name="voidTransactionResponse"><part name="body" element="uedocs:voidTransactionResponse"/></message>
+	
+	<!-- v1.6 start -->
+	<message name="getTransactionProfile"><part name="body" element="uedocs:getTransactionProfile"/></message>
+	<message name="getTransactionProfileResponse"><part name="body" element="uedocs:getTransactionProfileResponse"/></message>
+	
+	<message name="getCheckTrace"><part name="body" element="uedocs:getCheckTrace"/></message>
+	<message name="getCheckTraceResponse"><part name="body" element="uedocs:getCheckTraceResponse"/></message>
+	
+	<message name="getSession"><part name="body" element="uedocs:getSession"/></message>
+	<message name="getSessionResponse"><part name="body" element="uedocs:getSessionResponse"/></message>
+	
+	<message name="saveCard"><part name="body" element="uedocs:saveCard"/></message>
+	<message name="saveCardResponse"><part name="body" element="uedocs:saveCardResponse"/></message>
+	
+	<message name="saveCards"><part name="body" element="uedocs:saveCards"/></message>
+	<message name="saveCardsResponse"><part name="body" element="uedocs:saveCardsResponse"/></message>
+	
+	<message name="lookupCardToken"><part name="body" element="uedocs:lookupCardToken"/></message>
+	<message name="lookupCardTokenResponse"><part name="body" element="uedocs:lookupCardTokenResponse"/></message>
+			
+	<message name="emailTransactionReceipt"><part name="body" element="uedocs:emailTransactionReceipt"/></message>
+	<message name="emailTransactionReceiptResponse"><part name="body" element="uedocs:emailTransactionReceiptResponse"/></message>
+			
+	<message name="emailTransactionReceiptByName"><part name="body" element="uedocs:emailTransactionReceiptByName"/></message>
+	<message name="emailTransactionReceiptByNameResponse"><part name="body" element="uedocs:emailTransactionReceiptByNameResponse"/></message>
+
+	<message name="renderReceipt"><part name="body" element="uedocs:renderReceipt"/></message>
+	<message name="renderReceiptResponse"><part name="body" element="uedocs:renderReceiptResponse"/></message>
+
+	<message name="renderReceiptByName"><part name="body" element="uedocs:renderReceiptByName"/></message>
+	<message name="renderReceiptByNameResponse"><part name="body" element="uedocs:renderReceiptByNameResponse"/></message>
+
+	<message name="addReceipt"><part name="body" element="uedocs:addReceipt"/></message>
+	<message name="addReceiptResponse"><part name="body" element="uedocs:addReceiptResponse"/></message>
+
+	<message name="updateReceipt"><part name="body" element="uedocs:updateReceipt"/></message>
+	<message name="updateReceiptResponse"><part name="body" element="uedocs:updateReceiptResponse"/></message>
+
+	<message name="getReceipt"><part name="body" element="uedocs:getReceipt"/></message>
+	<message name="getReceiptResponse"><part name="body" element="uedocs:getReceiptResponse"/></message>
+
+	<message name="getReceiptByName"><part name="body" element="uedocs:getReceiptByName"/></message>
+	<message name="getReceiptByNameResponse"><part name="body" element="uedocs:getReceiptByNameResponse"/></message>
+
+	<message name="getReceipts"><part name="body" element="uedocs:getReceipts"/></message>
+	<message name="getReceiptsResponse"><part name="body" element="uedocs:getReceiptsResponse"/></message>
+
+	<message name="deleteReceipt"><part name="body" element="uedocs:deleteReceipt"/></message>
+	<message name="deleteReceiptResponse"><part name="body" element="uedocs:deleteReceiptResponse"/></message>
+
+	<message name="getCustomerReport"><part name="body" element="uedocs:getCustomerReport"/></message>
+	<message name="getCustomerReportResponse"><part name="body" element="uedocs:getCustomerReportResponse"/></message>
+
+	<message name="addProduct"><part name="body" element="uedocs:addProduct"/></message>
+	<message name="addProductResponse"><part name="body" element="uedocs:addProductResponse"/></message>
+
+	<message name="getProduct"><part name="body" element="uedocs:getProduct"/></message>
+	<message name="getProductResponse"><part name="body" element="uedocs:getProductResponse"/></message>
+
+	<message name="updateProduct"><part name="body" element="uedocs:updateProduct"/></message>
+	<message name="updateProductResponse"><part name="body" element="uedocs:updateProductResponse"/></message>
+
+	<message name="quickUpdateProduct"><part name="body" element="uedocs:quickUpdateProduct"/></message>
+	<message name="quickUpdateProductResponse"><part name="body" element="uedocs:quickUpdateProductResponse"/></message>
+
+	<message name="deleteProduct"><part name="body" element="uedocs:deleteProduct"/></message>
+	<message name="deleteProductResponse"><part name="body" element="uedocs:deleteProductResponse"/></message>
+
+	<message name="addProductCategory"><part name="body" element="uedocs:addProductCategory"/></message>
+	<message name="addProductCategoryResponse"><part name="body" element="uedocs:addProductCategoryResponse"/></message>
+
+	<message name="getProductCategory"><part name="body" element="uedocs:getProductCategory"/></message>
+	<message name="getProductCategoryResponse"><part name="body" element="uedocs:getProductCategoryResponse"/></message>
+
+	<message name="getProductCategories"><part name="body" element="uedocs:getProductCategories"/></message>
+	<message name="getProductCategoriesResponse"><part name="body" element="uedocs:getProductCategoriesResponse"/></message>
+
+	<message name="updateProductCategory"><part name="body" element="uedocs:updateProductCategory"/></message>
+	<message name="updateProductCategoryResponse"><part name="body" element="uedocs:updateProductCategoryResponse"/></message>
+
+	<message name="deleteProductCategory"><part name="body" element="uedocs:deleteProductCategory"/></message>
+	<message name="deleteProductCategoryResponse"><part name="body" element="uedocs:deleteProductCategoryResponse"/></message>
+
+	<message name="getProductInventory"><part name="body" element="uedocs:getProductInventory"/></message>
+	<message name="getProductInventoryResponse"><part name="body" element="uedocs:getProductInventoryResponse"/></message>
+
+	<message name="adjustInventory"><part name="body" element="uedocs:adjustInventory"/></message>
+	<message name="adjustInventoryResponse"><part name="body" element="uedocs:adjustInventoryResponse"/></message>
+
+	<message name="addProductInventoryLocation"><part name="body" element="uedocs:addProductInventoryLocation"/></message>
+	<message name="addProductInventoryLocationResponse"><part name="body" element="uedocs:addProductInventoryLocationResponse"/></message>
+
+	<message name="getProductInventoryLocation"><part name="body" element="uedocs:getProductInventoryLocation"/></message>
+	<message name="getProductInventoryLocationResponse"><part name="body" element="uedocs:getProductInventoryLocationResponse"/></message>
+
+	<message name="getProductInventoryLocations"><part name="body" element="uedocs:getProductInventoryLocations"/></message>
+	<message name="getProductInventoryLocationsResponse"><part name="body" element="uedocs:getProductInventoryLocationsResponse"/></message>
+
+	<message name="searchProducts"><part name="body" element="uedocs:searchProducts"/></message>
+	<message name="searchProductsResponse"><part name="body" element="uedocs:searchProductsResponse"/></message>
+
+	<message name="searchProductsCount"><part name="body" element="uedocs:searchProductsCount"/></message>
+	<message name="searchProductsCountResponse"><part name="body" element="uedocs:searchProductsCountResponse"/></message>
+
+	<message name="searchProductsCustom"><part name="body" element="uedocs:searchProductsCustom"/></message>
+	<message name="searchProductsCustomResponse"><part name="body" element="uedocs:searchProductsCustomResponse"/></message>
+
+	<message name="getSystemInfo"><part name="body" element="uedocs:getSystemInfo"/></message>
+	<message name="getSystemInfoResponse"><part name="body" element="uedocs:getSystemInfoResponse"/></message>
+
+	<message name="getReport"><part name="body" element="uedocs:getReport"/></message>
+	<message name="getReportResponse"><part name="body" element="uedocs:getReportResponse"/></message>
+
+	<message name="getSyncLog"><part name="body" element="uedocs:getSyncLog"/></message>
+	<message name="getSyncLogResponse"><part name="body" element="uedocs:getSyncLogResponse"/></message>
+
+	<message name="getSyncLogCurrentPosition"><part name="body" element="uedocs:getSyncLogCurrentPosition"/></message>
+	<message name="getSyncLogCurrentPositionResponse"><part name="body" element="uedocs:getSyncLogCurrentPositionResponse"/></message>
+
+	<message name="getCustomFields"><part name="body" element="uedocs:getCustomFields"/></message>
+	<message name="getCustomFieldsResponse"><part name="body" element="uedocs:getCustomFieldsResponse"/></message>
+
+	<message name="cancelCheckOut"><part name="body" element="uedocs:cancelCheckOut"/></message>
+	<message name="cancelCheckOutResponse"><part name="body" element="uedocs:cancelCheckOutResponse"/></message>
+
+	<message name="cancelSignatureRequest"><part name="body" element="uedocs:cancelSignatureRequest"/></message>
+	<message name="cancelSignatureRequestResponse"><part name="body" element="uedocs:cancelSignatureRequestResponse"/></message>
+
+	<message name="clearPosDeviceScreen"><part name="body" element="uedocs:clearPosDeviceScreen"/></message>
+	<message name="clearPosDeviceScreenResponse"><part name="body" element="uedocs:clearPosDeviceScreenResponse"/></message>
+
+	<message name="deletePosDeviceRegistration"><part name="body" element="uedocs:deletePosDeviceRegistration"/></message>
+	<message name="deletePosDeviceRegistrationResponse"><part name="body" element="uedocs:deletePosDeviceRegistrationResponse"/></message>
+
+	<message name="displayPosDeviceScreen"><part name="body" element="uedocs:displayPosDeviceScreen"/></message>
+	<message name="displayPosDeviceScreenResponse"><part name="body" element="uedocs:displayPosDeviceScreenResponse"/></message>
+
+	<message name="getCheckOutStatus"><part name="body" element="uedocs:getCheckOutStatus"/></message>
+	<message name="getCheckOutStatusResponse"><part name="body" element="uedocs:getCheckOutStatusResponse"/></message>
+
+	<message name="getPosDevice"><part name="body" element="uedocs:getPosDevice"/></message>
+	<message name="getPosDeviceResponse"><part name="body" element="uedocs:getPosDeviceResponse"/></message>
+
+	<message name="getPosDeviceScreen"><part name="body" element="uedocs:getPosDeviceScreen"/></message>
+	<message name="getPosDeviceScreenResponse"><part name="body" element="uedocs:getPosDeviceScreenResponse"/></message>
+
+	<message name="getRegistrationPin"><part name="body" element="uedocs:getRegistrationPin"/></message>
+	<message name="getRegistrationPinResponse"><part name="body" element="uedocs:getRegistrationPinResponse"/></message>
+
+	<message name="getSignatureStatus"><part name="body" element="uedocs:getSignatureStatus"/></message>
+	<message name="getSignatureStatusResponse"><part name="body" element="uedocs:getSignatureStatusResponse"/></message>
+
+	<message name="requestSignature"><part name="body" element="uedocs:requestSignature"/></message>
+	<message name="requestSignatureResponse"><part name="body" element="uedocs:requestSignatureResponse"/></message>
+
+	<message name="startCheckOut"><part name="body" element="uedocs:startCheckOut"/></message>
+	<message name="startCheckOutResponse"><part name="body" element="uedocs:startCheckOutResponse"/></message>
+
+	<message name="updateCheckOut"><part name="body" element="uedocs:updateCheckOut"/></message>
+	<message name="updateCheckOutResponse"><part name="body" element="uedocs:updateCheckOutResponse"/></message>
+	<!-- v1.6 end -->
+		
+	<message name="generalFault"><part name="body" element="uefaults:generalFault"/></message>
+
+	<portType name="ueSoapServerPortType">
+		<documentation>
+			The USAePay Soap interface provides a collection of functions implementing
+			a large portion of merchant and reseller functionality.
+		</documentation>
+		
+		<operation name="addCustomer">
+			<documentation>Add a Stored Customer Record</documentation>
+			<input message="typens:addCustomer" />
+			<output message="typens:addCustomerResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+
+		<operation name="addCustomerPaymentMethod">
+			<documentation>Add Payment Method For a Customer</documentation>
+			<input message="typens:addCustomerPaymentMethod" />
+			<output message="typens:addCustomerPaymentMethodResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="bulkCurrencyConversion">
+			<documentation>Convert multiple currency amounts in a single method call</documentation>
+			<input message="typens:bulkCurrencyConversion" />
+			<output message="typens:bulkCurrencyConversionResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="captureTransaction">
+			<documentation>Capture a queued transaction</documentation>
+			<input message="typens:captureTransaction" />
+			<output message="typens:captureTransactionResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="closeBatch">
+			<documentation>Close the batch specified by BatchRefNum</documentation>
+			<input message="typens:closeBatch" />
+			<output message="typens:closeBatchResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="convertTranToCust">
+			<documentation>Convert existing transaction into a stored customer.</documentation>
+			<input message="typens:convertTranToCust" />
+			<output message="typens:convertTranToCustResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="copyCustomer">
+			<documentation>Copy customer from one source key to another</documentation>
+			<input message="typens:copyCustomer" />
+			<output message="typens:copyCustomerResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="createBatchUpload">
+			<documentation>Post a new batch of transactions to the gateway for processing.</documentation>
+			<input message="typens:createBatchUpload" />
+			<output message="typens:createBatchUploadResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="currencyConversion">
+			<documentation>Lookup currency conversion rate for single dollar amount.</documentation>
+			<input message="typens:currencyConversion" />
+			<output message="typens:currencyConversionResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="deleteCustomer">
+			<documentation>Delete the customer specified by CustNum</documentation>
+			<input message="typens:deleteCustomer" />
+			<output message="typens:deleteCustomerResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="deleteCustomerPaymentMethod">
+			<documentation>Delete Payment Method</documentation>
+			<input message="typens:deleteCustomerPaymentMethod" />
+			<output message="typens:deleteCustomerPaymentMethodResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="disableCustomer">
+			<documentation>Disable the recurring billing for the customer specified by CustNum</documentation>
+			<input message="typens:disableCustomer" />
+			<output message="typens:disableCustomerResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="enableCustomer">
+			<documentation>Enable recurring billing for the customer specified by CustNum</documentation>
+			<input message="typens:enableCustomer" />
+			<output message="typens:enableCustomerResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getAccountDetails">
+			<documentation>Retrieves Information about Merchants account</documentation>
+			<input message="typens:getAccountDetails" />
+			<output message="typens:getAccountDetailsResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getBankList">
+			<documentation>Retrieves list of banks and financial institutions available for direct payment</documentation>
+			<input message="typens:getBankList" />
+			<output message="typens:getBankListResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getBatchStatus">
+			<documentation>Retrieve the status of the batch specified by BatchRefNum</documentation>
+			<input message="typens:getBatchStatus" />
+			<output message="typens:getBatchStatusResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getBatchTransactions">
+			<documentation>Retrieve transactions in the batch specified by BatchRefNum</documentation>
+			<input message="typens:getBatchTransactions" />
+			<output message="typens:getBatchTransactionsResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getBatchUploadStatus">
+			<documentation>Retrieve the status of the currently running batch.</documentation>
+			<input message="typens:getBatchUploadStatus" />
+			<output message="typens:getBatchUploadStatusResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getCustomer">
+			<documentation>Retrieve the customer details for the given CustNum</documentation>
+			<input message="typens:getCustomer" />
+			<output message="typens:getCustomerResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getCustomerHistory">
+			<documentation>Pull details of all transactions run for CustNum</documentation>
+			<input message="typens:getCustomerHistory" />
+			<output message="typens:getCustomerHistoryResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getCustomerPaymentMethod">
+			<documentation>Retrieve a specific customer Payment Methods for the given CustNum/MethodID</documentation>
+			<input message="typens:getCustomerPaymentMethod" />
+			<output message="typens:getCustomerPaymentMethodResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getCustomerPaymentMethods">
+			<documentation>Retrieve the customers Payment Methods for the given CustNum</documentation>
+			<input message="typens:getCustomerPaymentMethods" />
+			<output message="typens:getCustomerPaymentMethodsResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getSupportedCurrencies">
+			<documentation>Retrieve Supported Currencies</documentation>
+			<input message="typens:getSupportedCurrencies" />
+			<output message="typens:getSupportedCurrenciesResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getTransaction">
+			<documentation>Retreive all information for the transactions specified by RefNum</documentation>
+			<input message="typens:getTransaction" />
+			<output message="typens:getTransactionResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getTransactionCustom">
+			<documentation>Get Specific Transaction Details</documentation>
+			<input message="typens:getTransactionCustom" />
+			<output message="typens:getTransactionCustomResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getTransactionReport">
+			<documentation>Pull a transaction report</documentation>
+			<input message="typens:getTransactionReport" />
+			<output message="typens:getTransactionReportResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getTransactionStatus">
+			<documentation>Retrieve the current status of transaction specified by RefNum</documentation>
+			<input message="typens:getTransactionStatus" />
+			<output message="typens:getTransactionStatusResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="moveCustomer">
+			<documentation>Move customer from one source key to another</documentation>
+			<input message="typens:moveCustomer" />
+			<output message="typens:moveCustomerResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="overrideTransaction">
+			<documentation>Override the transaction specified by RefNum</documentation>
+			<input message="typens:overrideTransaction" />
+			<output message="typens:overrideTransactionResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="pauseBatchUpload">
+			<documentation>Pause a Batch Upload that is already running</documentation>
+			<input message="typens:pauseBatchUpload" />
+			<output message="typens:pauseBatchUploadResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="postAuth">
+			<documentation>Post an Offline Authorization</documentation>
+			<input message="typens:postAuth" />
+			<output message="typens:postAuthResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="quickUpdateCustomer">
+			<documentation>Update specified data for customer specified by CustNum</documentation>
+			<input message="typens:quickUpdateCustomer" />
+			<output message="typens:quickUpdateCustomerResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="refundTransaction">
+			<documentation>Refund part or all of a transaction</documentation>
+			<input message="typens:refundTransaction" />
+			<output message="typens:refundTransactionResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="runAuthOnly">
+			<documentation>Run an AuthOnly Credit Card Sale</documentation>
+			<input message="typens:runAuthOnly" />
+			<output message="typens:runAuthOnlyResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="runBatchUpload">
+			<documentation>Start a Paused Batch Upload</documentation>
+			<input message="typens:runBatchUpload" />
+			<output message="typens:runBatchUploadResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="runCheckCredit">
+			<documentation>Run a Check Credit transaction</documentation>
+			<input message="typens:runCheckCredit" />
+			<output message="typens:runCheckCreditResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="runCheckSale">
+			<documentation>Run a Check Sale</documentation>
+			<input message="typens:runCheckSale" />
+			<output message="typens:runCheckSaleResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="runCredit">
+			<documentation>Run a Credit transaction</documentation>
+			<input message="typens:runCredit" />
+			<output message="typens:runCreditResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="runCustomerTransaction">
+			<documentation>Run a sale for a customer stored in the customer database</documentation>
+			<input message="typens:runCustomerTransaction" />
+			<output message="typens:runCustomerTransactionResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="runQuickCredit">
+			<documentation>Run a credit based on the credit card details of a previous transaction.</documentation>
+			<input message="typens:runQuickCredit" />
+			<output message="typens:runQuickCreditResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="runQuickSale">
+			<documentation>Run a sale based on the credit card details of a previous transaction.</documentation>
+			<input message="typens:runQuickSale" />
+			<output message="typens:runQuickSaleResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="runSale">
+			<documentation>Run a Credit Card Sale</documentation>
+			<input message="typens:runSale" />
+			<output message="typens:runSaleResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="runTransaction">
+			<documentation>Runs a Transaction using the USAePay Transaction API</documentation>
+			<input message="typens:runTransaction" />
+			<output message="typens:runTransactionResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="runTransactionAPI">
+			<documentation>Provides a Soap wrapper for the USAePay Transaction API</documentation>
+			<input message="typens:runTransactionAPI" />
+			<output message="typens:runTransactionAPIResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="searchBatches">
+			<documentation>Search Settled Batches</documentation>
+			<input message="typens:searchBatches" />
+			<output message="typens:searchBatchesResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="searchBatchesCount">
+			<documentation>Search Settled Batches, return counts only</documentation>
+			<input message="typens:searchBatchesCount" />
+			<output message="typens:searchBatchesCountResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="searchCustomerID">
+			<documentation>Find the customer refnum (CustNum) associated with the userdefined CustID</documentation>
+			<input message="typens:searchCustomerID" />
+			<output message="typens:searchCustomerIDResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="searchCustomers">
+			<documentation>Search customer database</documentation>
+			<input message="typens:searchCustomers" />
+			<output message="typens:searchCustomersResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="searchCustomersCount">
+			<documentation>Search customer database return only count of what was found</documentation>
+			<input message="typens:searchCustomersCount" />
+			<output message="typens:searchCustomersCountResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="searchCustomersCustom">
+			<documentation>Search Customers and return specified fields</documentation>
+			<input message="typens:searchCustomersCustom" />
+			<output message="typens:searchCustomersCustomResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="searchTransactions">
+			<documentation>Search transactions and return transaction records</documentation>
+			<input message="typens:searchTransactions" />
+			<output message="typens:searchTransactionsResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="searchTransactionsCount">
+			<documentation>Search transactions and return counts,  omit tran data</documentation>
+			<input message="typens:searchTransactionsCount" />
+			<output message="typens:searchTransactionsCountResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="searchTransactionsCustom">
+			<documentation>Search Transactions and return specified fields</documentation>
+			<input message="typens:searchTransactionsCustom" />
+			<output message="typens:searchTransactionsCustomResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="updateCustomer">
+			<documentation>Replace all data for customer specified by CustNum</documentation>
+			<input message="typens:updateCustomer" />
+			<output message="typens:updateCustomerResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="updateCustomerPaymentMethod">
+			<documentation>Update a Customer Payment Method</documentation>
+			<input message="typens:updateCustomerPaymentMethod" />
+			<output message="typens:updateCustomerPaymentMethodResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="voidTransaction">
+			<documentation>Void the transaction specified by RefNum</documentation>
+			<input message="typens:voidTransaction" />
+			<output message="typens:voidTransactionResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+
+		<!-- v1.6 start -->
+		<operation name="getTransactionProfile">
+			<documentation>Get Specific Transaction Fraud Profiling data</documentation>
+			<input message="typens:getTransactionProfile" />
+			<output message="typens:getTransactionProfileResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getCheckTrace">
+			<documentation>Retreive all check status data for the transactions specified by RefNum</documentation>
+			<input message="typens:getCheckTrace" />
+			<output message="typens:getCheckTraceResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getSession">
+			<documentation>Open a transaction profiling session</documentation>
+			<input message="typens:getSession" />
+			<output message="typens:getSessionResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="saveCard">
+			<documentation>Save a credit card for future use</documentation>
+			<input message="typens:saveCard" />
+			<output message="typens:saveCardResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="saveCards">
+			<documentation>Save a credit cards for future use</documentation>
+			<input message="typens:saveCards" />
+			<output message="typens:saveCardsResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="lookupCardToken">
+			<documentation>Lookup a card refernce token by the preassigned lookup key</documentation>
+			<input message="typens:lookupCardToken" />
+			<output message="typens:lookupCardTokenResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="emailTransactionReceipt">
+			<documentation>Email a transaction receipt specified by ReceiptRefNum</documentation>
+			<input message="typens:emailTransactionReceipt" />
+			<output message="typens:emailTransactionReceiptResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="emailTransactionReceiptByName">
+			<documentation>Email a transaction receipt specied by ReceiptName</documentation>
+			<input message="typens:emailTransactionReceiptByName" />
+			<output message="typens:emailTransactionReceiptByNameResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="renderReceipt">
+			<documentation>Render receipt for transaction</documentation>
+			<input message="typens:renderReceipt" />
+			<output message="typens:renderReceiptResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="renderReceiptByName">
+			<documentation>Render receipt for transaction</documentation>
+			<input message="typens:renderReceiptByName" />
+			<output message="typens:renderReceiptByNameResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="addReceipt">
+			<documentation>Add a new receipt template</documentation>
+			<input message="typens:addReceipt" />
+			<output message="typens:addReceiptResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="updateReceipt">
+			<documentation></documentation>
+			<input message="typens:updateReceipt" />
+			<output message="typens:updateReceiptResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getReceipt">
+			<documentation>Update receipt template</documentation>
+			<input message="typens:getReceipt" />
+			<output message="typens:getReceiptResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getReceiptByName">
+			<documentation>Retreive a receipt template by receipt name</documentation>
+			<input message="typens:getReceiptByName" />
+			<output message="typens:getReceiptByNameResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getReceipts">
+			<documentation>Retreive list of receipt templates by target</documentation>
+			<input message="typens:getReceipts" />
+			<output message="typens:getReceiptsResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="deleteReceipt">
+			<documentation>Delete a customer receipt template</documentation>
+			<input message="typens:deleteReceipt" />
+			<output message="typens:deleteReceiptResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getCustomerReport">
+			<documentation>Pull a customer report</documentation>
+			<input message="typens:getCustomerReport" />
+			<output message="typens:getCustomerReportResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="addProduct">
+			<documentation>Add a new product</documentation>
+			<input message="typens:addProduct" />
+			<output message="typens:addProductResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getProduct">
+			<documentation>Retrieve the product details for the given ProductRefNum</documentation>
+			<input message="typens:getProduct" />
+			<output message="typens:getProductResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="updateProduct">
+			<documentation>Replace all data for product specified by ProductRefNum</documentation>
+			<input message="typens:updateProduct" />
+			<output message="typens:updateProductResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="quickUpdateProduct">
+			<documentation>Update specified data for product specified by ProductRefNum</documentation>
+			<input message="typens:quickUpdateProduct" />
+			<output message="typens:quickUpdateProductResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="deleteProduct">
+			<documentation>Delete product specified by ProductRefNum.</documentation>
+			<input message="typens:deleteProduct" />
+			<output message="typens:deleteProductResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="addProductCategory">
+			<documentation>Add a new product category</documentation>
+			<input message="typens:addProductCategory" />
+			<output message="typens:addProductCategoryResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getProductCategory">
+			<documentation>Retrieve the product category details for the given ProductCategoryRefNum</documentation>
+			<input message="typens:getProductCategory" />
+			<output message="typens:getProductCategoryResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getProductCategories">
+			<documentation>Retreive list of product categories</documentation>
+			<input message="typens:getProductCategories" />
+			<output message="typens:getProductCategoriesResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="updateProductCategory">
+			<documentation>Replace all data for product category specified by ProductCategoryRefNum</documentation>
+			<input message="typens:updateProductCategory" />
+			<output message="typens:updateProductCategoryResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="deleteProductCategory">
+			<documentation>Delete product category specified by ProductCategoryRefNum.</documentation>
+			<input message="typens:deleteProductCategory" />
+			<output message="typens:deleteProductCategoryResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getProductInventory">
+			<documentation>Retrieve the product inventory</documentation>
+			<input message="typens:getProductInventory" />
+			<output message="typens:getProductInventoryResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="adjustInventory">
+			<documentation>Adjust product inventory</documentation>
+			<input message="typens:adjustInventory" />
+			<output message="typens:adjustInventoryResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="addProductInventoryLocation">
+			<documentation>Add a new product inventory location</documentation>
+			<input message="typens:addProductInventoryLocation" />
+			<output message="typens:addProductInventoryLocationResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getProductInventoryLocation">
+			<documentation>Retrieve the product locations details for the given InventoryLocation</documentation>
+			<input message="typens:getProductInventoryLocation" />
+			<output message="typens:getProductInventoryLocationResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getProductInventoryLocations">
+			<documentation>Retreive list of product inventory locations (warehouses)</documentation>
+			<input message="typens:getProductInventoryLocations" />
+			<output message="typens:getProductInventoryLocationsResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="searchProducts">
+			<documentation>Search Products</documentation>
+			<input message="typens:searchProducts" />
+			<output message="typens:searchProductsResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="searchProductsCount">
+			<documentation>Search Products, return counts only</documentation>
+			<input message="typens:searchProductsCount" />
+			<output message="typens:searchProductsCountResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="searchProductsCustom">
+			<documentation>Search Products and return custom response</documentation>
+			<input message="typens:searchProductsCustom" />
+			<output message="typens:searchProductsCustomResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getSystemInfo">
+			<documentation>Retreive information about service</documentation>
+			<input message="typens:getSystemInfo" />
+			<output message="typens:getSystemInfoResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getReport">
+			<documentation>Pull a merchant report</documentation>
+			<input message="typens:getReport" />
+			<output message="typens:getReportResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getSyncLog">
+			<documentation>Retrieve changes to data objects made on the server</documentation>
+			<input message="typens:getSyncLog" />
+			<output message="typens:getSyncLogResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getSyncLogCurrentPosition">
+			<documentation>Returns the last position in the change log for a given object</documentation>
+			<input message="typens:getSyncLogCurrentPosition" />
+			<output message="typens:getSyncLogCurrentPositionResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getCustomFields">
+			<documentation>Retrieve the custom fields defined by merchants</documentation>
+			<input message="typens:getCustomFields" />
+			<output message="typens:getCustomFieldsResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="cancelCheckOut">
+			<documentation>Cancel an in process checkout request</documentation>
+			<input message="typens:cancelCheckOut" />
+			<output message="typens:cancelCheckOutResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="cancelSignatureRequest">
+			<documentation>Cancel an in process signature request</documentation>
+			<input message="typens:cancelSignatureRequest" />
+			<output message="typens:cancelSignatureRequestResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="clearPosDeviceScreen">
+			<documentation>Clear the pos device screen and return it to the idle state</documentation>
+			<input message="typens:clearPosDeviceScreen" />
+			<output message="typens:clearPosDeviceScreenResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="deletePosDeviceRegistration">
+			<documentation>Remove any registered pos devices from the source key.</documentation>
+			<input message="typens:deletePosDeviceRegistration" />
+			<output message="typens:deletePosDeviceRegistrationResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="displayPosDeviceScreen">
+			<documentation>Display a screen and message on the pos device.</documentation>
+			<input message="typens:displayPosDeviceScreen" />
+			<output message="typens:displayPosDeviceScreenResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getCheckOutStatus">
+			<documentation>Retrieve status of a checkout request</documentation>
+			<input message="typens:getCheckOutStatus" />
+			<output message="typens:getCheckOutStatusResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getPosDevice">
+			<documentation>Retrieve information about the current connected pos device</documentation>
+			<input message="typens:getPosDevice" />
+			<output message="typens:getPosDeviceResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getPosDeviceScreen">
+			<documentation>Retrieve the name of the screen currently being displayed by the POS device</documentation>
+			<input message="typens:getPosDeviceScreen" />
+			<output message="typens:getPosDeviceScreenResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getRegistrationPin">
+			<documentation>Retrieve a registration pin need for connecting pos device</documentation>
+			<input message="typens:getRegistrationPin" />
+			<output message="typens:getRegistrationPinResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="getSignatureStatus">
+			<documentation>Retreive status of signature request</documentation>
+			<input message="typens:getSignatureStatus" />
+			<output message="typens:getSignatureStatusResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="requestSignature">
+			<documentation>Request signature on POS Device</documentation>
+			<input message="typens:requestSignature" />
+			<output message="typens:requestSignatureResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="startCheckOut">
+			<documentation>Start pos device checkout / payment request</documentation>
+			<input message="typens:startCheckOut" />
+			<output message="typens:startCheckOutResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<operation name="updateCheckOut">
+			<documentation>Update details for a checkout request</documentation>
+			<input message="typens:updateCheckOut" />
+			<output message="typens:updateCheckOutResponse"/>
+			<fault message="typens:generalFault" name="generalFault"/>
+		</operation>
+		<!-- v1.6 end -->
+	</portType>
+		
+	<binding name="ueSoapServerBinding" type="typens:ueSoapServerPortType">
+	
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		 
+		<operation name="addCustomer">
+			<soap:operation soapAction="addCustomer"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		
+		<operation name="addCustomerPaymentMethod">
+			<soap:operation soapAction="addCustomerPaymentMethod"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="bulkCurrencyConversion">
+			<soap:operation soapAction="bulkCurrencyConversion"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="captureTransaction">
+			<soap:operation soapAction="captureTransaction"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="closeBatch">
+			<soap:operation soapAction="closeBatch"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="convertTranToCust">
+			<soap:operation soapAction="convertTranToCust"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="copyCustomer">
+			<soap:operation soapAction="copyCustomer"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="createBatchUpload">
+			<soap:operation soapAction="createBatchUpload"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="currencyConversion">
+			<soap:operation soapAction="currencyConversion"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="deleteCustomer">
+			<soap:operation soapAction="deleteCustomer"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="deleteCustomerPaymentMethod">
+			<soap:operation soapAction="deleteCustomerPaymentMethod"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="disableCustomer">
+			<soap:operation soapAction="disableCustomer"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="enableCustomer">
+			<soap:operation soapAction="enableCustomer"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getAccountDetails">
+			<soap:operation soapAction="getAccountDetails"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getBankList">
+			<soap:operation soapAction="getBankList"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getBatchStatus">
+			<soap:operation soapAction="getBatchStatus"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getBatchTransactions">
+			<soap:operation soapAction="getBatchTransactions"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getBatchUploadStatus">
+			<soap:operation soapAction="getBatchUploadStatus"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getCustomer">
+			<soap:operation soapAction="getCustomer"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getCustomerHistory">
+			<soap:operation soapAction="getCustomerHistory"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getCustomerPaymentMethod">
+			<soap:operation soapAction="getCustomerPaymentMethod"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getCustomerPaymentMethods">
+			<soap:operation soapAction="getCustomerPaymentMethods"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getSupportedCurrencies">
+			<soap:operation soapAction="getSupportedCurrencies"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getTransaction">
+			<soap:operation soapAction="getTransaction"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getTransactionCustom">
+			<soap:operation soapAction="getTransactionCustom"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getTransactionReport">
+			<soap:operation soapAction="getTransactionReport"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getTransactionStatus">
+			<soap:operation soapAction="getTransactionStatus"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="moveCustomer">
+			<soap:operation soapAction="moveCustomer"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="overrideTransaction">
+			<soap:operation soapAction="overrideTransaction"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="pauseBatchUpload">
+			<soap:operation soapAction="pauseBatchUpload"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="postAuth">
+			<soap:operation soapAction="postAuth"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="quickUpdateCustomer">
+			<soap:operation soapAction="quickUpdateCustomer"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="refundTransaction">
+			<soap:operation soapAction="refundTransaction"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="runAuthOnly">
+			<soap:operation soapAction="runAuthOnly"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="runBatchUpload">
+			<soap:operation soapAction="runBatchUpload"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="runCheckCredit">
+			<soap:operation soapAction="runCheckCredit"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="runCheckSale">
+			<soap:operation soapAction="runCheckSale"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="runCredit">
+			<soap:operation soapAction="runCredit"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="runCustomerTransaction">
+			<soap:operation soapAction="runCustomerTransaction"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="runQuickCredit">
+			<soap:operation soapAction="runQuickCredit"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="runQuickSale">
+			<soap:operation soapAction="runQuickSale"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="runSale">
+			<soap:operation soapAction="runSale"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="runTransaction">
+			<soap:operation soapAction="runTransaction"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="runTransactionAPI">
+			<soap:operation soapAction="runTransactionAPI"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="searchBatches">
+			<soap:operation soapAction="searchBatches"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="searchBatchesCount">
+			<soap:operation soapAction="searchBatchesCount"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="searchCustomerID">
+			<soap:operation soapAction="searchCustomerID"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="searchCustomers">
+			<soap:operation soapAction="searchCustomers"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="searchCustomersCount">
+			<soap:operation soapAction="searchCustomersCount"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="searchCustomersCustom">
+			<soap:operation soapAction="searchCustomersCustom"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="searchTransactions">
+			<soap:operation soapAction="searchTransactions"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="searchTransactionsCount">
+			<soap:operation soapAction="searchTransactionsCount"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="searchTransactionsCustom">
+			<soap:operation soapAction="searchTransactionsCustom"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="updateCustomer">
+			<soap:operation soapAction="updateCustomer"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="updateCustomerPaymentMethod">
+			<soap:operation soapAction="updateCustomerPaymentMethod"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="voidTransaction">
+			<soap:operation soapAction="voidTransaction"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<!-- v1.6 start -->
+		<operation name="getTransactionProfile">
+			<soap:operation soapAction="getTransactionProfile"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getCheckTrace">
+			<soap:operation soapAction="getCheckTrace"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getSession">
+			<soap:operation soapAction="getSession"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="saveCard">
+			<soap:operation soapAction="saveCard"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="saveCards">
+			<soap:operation soapAction="saveCards"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="lookupCardToken">
+			<soap:operation soapAction="lookupCardToken"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="emailTransactionReceipt">
+			<soap:operation soapAction="emailTransactionReceipt"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="emailTransactionReceiptByName">
+			<soap:operation soapAction="emailTransactionReceiptByName"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="renderReceipt">
+			<soap:operation soapAction="renderReceipt"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="renderReceiptByName">
+			<soap:operation soapAction="renderReceiptByName"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="addReceipt">
+			<soap:operation soapAction="addReceipt"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="updateReceipt">
+			<soap:operation soapAction="updateReceipt"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getReceipt">
+			<soap:operation soapAction="getReceipt"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getReceiptByName">
+			<soap:operation soapAction="getReceiptByName"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getReceipts">
+			<soap:operation soapAction="getReceipts"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="deleteReceipt">
+			<soap:operation soapAction="deleteReceipt"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getCustomerReport">
+			<soap:operation soapAction="getCustomerReport"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="addProduct">
+			<soap:operation soapAction="addProduct"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getProduct">
+			<soap:operation soapAction="getProduct"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="updateProduct">
+			<soap:operation soapAction="updateProduct"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="quickUpdateProduct">
+			<soap:operation soapAction="quickUpdateProduct"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="deleteProduct">
+			<soap:operation soapAction="deleteProduct"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="addProductCategory">
+			<soap:operation soapAction="addProductCategory"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getProductCategory">
+			<soap:operation soapAction="getProductCategory"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getProductCategories">
+			<soap:operation soapAction="getProductCategories"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="updateProductCategory">
+			<soap:operation soapAction="updateProductCategory"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="deleteProductCategory">
+			<soap:operation soapAction="deleteProductCategory"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getProductInventory">
+			<soap:operation soapAction="getProductInventory"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="adjustInventory">
+			<soap:operation soapAction="adjustInventory"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="addProductInventoryLocation">
+			<soap:operation soapAction="addProductInventoryLocation"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getProductInventoryLocation">
+			<soap:operation soapAction="getProductInventoryLocation"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getProductInventoryLocations">
+			<soap:operation soapAction="getProductInventoryLocations"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="searchProducts">
+			<soap:operation soapAction="searchProducts"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="searchProductsCount">
+			<soap:operation soapAction="searchProductsCount"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="searchProductsCustom">
+			<soap:operation soapAction="searchProductsCustom"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getSystemInfo">
+			<soap:operation soapAction="getSystemInfo"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getReport">
+			<soap:operation soapAction="getReport"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getSyncLog">
+			<soap:operation soapAction="getSyncLog"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getSyncLogCurrentPosition">
+			<soap:operation soapAction="getSyncLogCurrentPosition"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getCustomFields">
+			<soap:operation soapAction="getCustomFields"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="cancelCheckOut">
+			<soap:operation soapAction="cancelCheckOut"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="cancelSignatureRequest">
+			<soap:operation soapAction="cancelSignatureRequest"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="clearPosDeviceScreen">
+			<soap:operation soapAction="clearPosDeviceScreen"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="deletePosDeviceRegistration">
+			<soap:operation soapAction="deletePosDeviceRegistration"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="displayPosDeviceScreen">
+			<soap:operation soapAction="displayPosDeviceScreen"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getCheckOutStatus">
+			<soap:operation soapAction="getCheckOutStatus"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getPosDevice">
+			<soap:operation soapAction="getPosDevice"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getPosDeviceScreen">
+			<soap:operation soapAction="getPosDeviceScreen"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getRegistrationPin">
+			<soap:operation soapAction="getRegistrationPin"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="getSignatureStatus">
+			<soap:operation soapAction="getSignatureStatus"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="requestSignature">
+			<soap:operation soapAction="requestSignature"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="startCheckOut">
+			<soap:operation soapAction="startCheckOut"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<operation name="updateCheckOut">
+			<soap:operation soapAction="updateCheckOut"/>
+			<input><soap:body use="literal"/></input>
+			<output><soap:body use="literal"/></output>
+			<fault name="generalFault"><soap:fault name="generalFault" use="literal"/></fault>
+		</operation>
+		<!-- v1.6 end -->
+	</binding>
+	
+	<service name="usaepayService">
+		<documentation>USAePay Soap Service</documentation> 
+		<port name="ueSoapServerPort" binding="typens:ueSoapServerBinding">
+			<soap:address location="https://www.usaepay.com/soap/gate/CD942BE3"/>
+		</port>
+	</service>
+</definitions>

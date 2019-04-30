@@ -1,0 +1,248 @@
+{
+    "label": "USAePAY",
+    "name": "usaepay",
+    "apiVersion": "v1",
+    "internal": false,
+    "configurationType": "GLOBAL",
+    "deployment": {
+        "profiles":[
+            {
+                "name": "default",
+                "label": "Default",
+                "memory": 384,
+                "offHeapMinFactor": 1.5,
+                "description": "Default configuration"
+            }
+        ],
+        "allowMultipleInstances": false
+    },
+    "icon48": "https://storage.googleapis.com/static.slingrs.io/platform/endpoints/usaepay.png",
+    "configurationHelpUrl": "/endpoints_usaepay.html",
+    "status": "ACTIVE",
+    "stores": [],
+    "events": [
+    ],
+    "functions": [
+        {
+            "label": "runTransaction",
+            "name": "_runTransaction"
+        },
+        {
+            "label": "runTransactionAPI",
+            "name": "_runTransactionAPI"
+        },
+        {
+            "label": "runSale",
+            "name": "_runSale"
+        },
+        {
+            "label": "runAuthOnly",
+            "name": "_runAuthOnly"
+        },
+        {
+            "label": "runCredit",
+            "name": "_runCredit"
+        },
+        {
+            "label": "runCheckSale",
+            "name": "_runCheckSale"
+        },
+        {
+            "label": "runCheckCredit",
+            "name": "_runCheckCredit"
+        },
+        {
+            "label": "runQuickSale",
+            "name": "_runQuickSale"
+        },
+        {
+            "label": "runQuickCredit",
+            "name": "_runQuickCredit"
+        },
+        {
+            "label": "postAuth",
+            "name": "_postAuth"
+        },
+        {
+            "label": "captureTransaction",
+            "name": "_captureTransaction"
+        },
+        {
+            "label": "refundTransaction",
+            "name": "_refundTransaction"
+        },
+        {
+            "label": "overrideTransaction",
+            "name": "_overrideTransaction"
+        },
+        {
+            "label": "voidTransaction",
+            "name": "_voidTransaction"
+        },
+        {
+            "label": "getTransaction",
+            "name": "_getTransaction"
+        },
+        {
+            "label": "getTransactionStatus",
+            "name": "_getTransactionStatus"
+        },
+        {
+            "label": "getTransactionCustom",
+            "name": "_getTransactionCustom"
+        },
+        {
+            "label": "getTransactionProfile",
+            "name": "_getTransactionProfile"
+        },
+        {
+            "label": "getCheckTrace",
+            "name": "_getCheckTrace"
+        },
+        {
+            "label": "searchTransactions",
+            "name": "_searchTransactions"
+        },
+        {
+            "label": "searchTransactionsCount",
+            "name": "_searchTransactionsCount"
+        },
+        {
+            "label": "searchTransactionsCustom",
+            "name": "_searchTransactionsCustom"
+        },
+        {
+            "label": "getTransactionReport",
+            "name": "_getTransactionReport"
+        },
+        {
+            "label": "convertTranToCust",
+            "name": "_convertTranToCust"
+        },
+        {
+            "label": "getSession",
+            "name": "_getSession"
+        },
+        {
+            "label": "runCustomerTransaction",
+            "name": "_runCustomerTransaction"
+        },
+        {
+            "label": "enableCustomer",
+            "name": "_enableCustomer"
+        },
+        {
+            "label": "disableCustomer",
+            "name": "_disableCustomer"
+        },
+        {
+            "label": "deleteCustomer",
+            "name": "_deleteCustomer"
+        },
+        {
+            "label": "searchCustomerID",
+            "name": "_searchCustomerID"
+        },
+        {
+            "label": "getCustomer",
+            "name": "_getCustomer"
+        },
+        {
+            "label": "searchCustomers",
+            "name": "_searchCustomers"
+        },
+        {
+            "label": "searchCustomersCount",
+            "name": "_searchCustomersCount"
+        },
+        {
+            "label": "searchCustomersCustom",
+            "name": "_searchCustomersCustom"
+        },
+        {
+            "label": "getCustomerHistory",
+            "name": "_getCustomerHistory"
+        },
+        {
+            "label": "addCustomer",
+            "name": "_addCustomer"
+        },
+        {
+            "label": "addCustomerPaymentMethod",
+            "name": "_addCustomerPaymentMethod"
+        },
+        {
+            "label": "deleteCustomerPaymentMethod",
+            "name": "_deleteCustomerPaymentMethod"
+        },
+        {
+            "label": "getCustomerPaymentMethod",
+            "name": "_getCustomerPaymentMethod"
+        },
+        {
+            "label": "getCustomerPaymentMethods",
+            "name": "_getCustomerPaymentMethods"
+        },
+        {
+            "label": "updateCustomer",
+            "name": "_updateCustomer"
+        },
+        {
+            "label": "quickUpdateCustomer",
+            "name": "_quickUpdateCustomer"
+        },
+        {
+            "label": "updateCustomerPaymentMethod",
+            "name": "_updateCustomerPaymentMethod"
+        },
+        {
+            "label": "copyCustomer",
+            "name": "_copyCustomer"
+        },
+        {
+            "label": "moveCustomer",
+            "name": "_moveCustomer"
+        },
+        {
+            "label": "getCustomerReport",
+            "name": "_getCustomerReport"
+        }
+    ],
+    "scripts":[
+        "functions.js"
+    ],
+    "configuration":[
+        {
+            "name": "sourceKey",
+            "label": "Source Key",
+            "type": "text",
+            "required": true
+        },
+        {
+            "name": "sandbox",
+            "label": "Sandbox",
+            "type": "buttonsGroup",
+            "required": true,
+            "defaultValue": "yes",
+            "typeOptions": {
+                "allowCustom": true,
+                "possibleValues":[
+                    {
+                        "label":"Yes",
+                        "name":"yes"
+                    },
+                    {
+                        "label":"No",
+                        "name":"no"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "sourcePin",
+            "label": "Source PIN",
+            "type": "text",
+            "required": true
+        }
+    ]
+}
